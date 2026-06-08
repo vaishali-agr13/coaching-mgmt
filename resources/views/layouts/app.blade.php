@@ -166,17 +166,23 @@
                         <i class="fas fa-chart-line"></i> Dashboard
                     </a>
                 </li>
+
                 <li>
-                    <a href="#">
+                    <a href="/admin/users">
+                        <i class="fas fa-users"></i> Users
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/students">
                         <i class="fas fa-users"></i> Students
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/admin/faculty">
                         <i class="fas fa-chalkboard-user"></i> Faculty
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#">
                         <i class="fas fa-book"></i> Courses
                     </a>
@@ -225,7 +231,7 @@
                     <a href="#">
                         <i class="fas fa-chart-bar"></i> Reports
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
 

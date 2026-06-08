@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AdmissionController;
@@ -100,6 +102,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::post('/{id}/status', [FacultyController::class, 'updateStatus'])->name('updateStatus'); // Change status
     });
     
+    Route::resource('users', UserController::class);
+  
+
     // ============================================
     // COURSE MANAGEMENT
     // ============================================

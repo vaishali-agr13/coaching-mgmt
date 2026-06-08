@@ -125,12 +125,17 @@ class StudentController extends Controller
      */
     public function show($id)
     {
+        
         try {
             $student = Student::with('user', 'enrollments', 'fees', 'examResults', 'attendance')->findOrFail($id);
             return view('admin.students.show', compact('student'));
         } catch (\Exception $e) {
-            Log::error('Student show error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Student not found.');
+                Log::error('Student show error', [
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ]);            
+                return redirect()->back()->with('error', 'Student not found.');
         }
     }
 

@@ -25,7 +25,6 @@ class DashboardController extends Controller
 
             // Get recent activities
             $recentActivities = $this->getRecentActivities();
-            print_r($recentActivities);die;
 
             // Get attendance overview
             $attendanceOverview = $this->getAttendanceOverview();

@@ -19,23 +19,30 @@ class FacultyController extends Controller
     {
         try {
             $query = Faculty::with('user');
-            
-            if ($request->search) {
+
+            if ($request->filled('search')) {
                 $search = $request->search;
-                $query->whereHas('user', function($q) use ($search) {
-                    $q->where('name', 'LIKE', "%{$search}%")
-                      ->orWhere('email', 'LIKE', "%{$search}%");
-                })->orWhere('employee_id', 'LIKE', "%{$search}%");
+
+                $query->where(function ($mainQuery) use ($search) {
+                    $mainQuery->whereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'LIKE', "%{$search}%")
+                        ->orWhere('email', 'LIKE', "%{$search}%");
+                    })
+                    ->orWhere('employee_id', 'LIKE', "%{$search}%");
+                });
             }
-            
-            if ($request->status) {
+
+            if ($request->filled('status')) {
                 $query->where('status', $request->status);
             }
-            
-            $faculty = $query->paginate(15);
-            return view('admin.faculty.index', compact('faculty'));
+
+            $faculties = $query->paginate(15);
+
+            return view('admin.faculty.index', compact('faculties'));
+
         } catch (\Exception $e) {
             Log::error('Faculty index error: ' . $e->getMessage());
+            Log::error($e->getTraceAsString()); // 🔥 important
             return redirect()->back()->with('error', 'Error loading faculty.');
         }
     }
@@ -45,7 +52,9 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        return view('admin.faculty.create');
+        $users = User::where('role', 'faculty')->get();
+
+        return view('admin.faculty.create',compact('users'));
     }
 
     /**
@@ -55,16 +64,14 @@ class FacultyController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'name' => 'required|string|max:100',
-                'email' => 'required|email|unique:users,email',
-                'phone' => 'nullable|string|max:15',
-                'password' => 'required|min:8|confirmed',
+                'user_id' => 'required',
                 'employee_id' => 'required|string|unique:faculty,employee_id',
                 'department' => 'nullable|string|max:100',
                 'specialization' => 'nullable|string|max:100',
                 'qualification' => 'nullable|string|max:255',
                 'experience_years' => 'nullable|integer',
                 'joining_date' => 'required|date',
+                'status'=>'required',
                 'salary' => 'nullable|numeric',
                 'office_hours' => 'nullable|string|max:255',
                 'bio' => 'nullable|string',
@@ -74,17 +81,8 @@ class FacultyController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => Hash::make($request->password),
-                'role' => 'faculty',
-                'status' => 'active',
-            ]);
-
             Faculty::create([
-                'user_id' => $user->id,
+                'user_id' => $request->user_id,
                 'employee_id' => $request->employee_id,
                 'department' => $request->department,
                 'specialization' => $request->specialization,
@@ -130,7 +128,9 @@ class FacultyController extends Controller
     {
         try {
             $faculty = Faculty::with('user')->findOrFail($id);
-            return view('admin.faculty.edit', compact('faculty'));
+            $users = User::where('role', 'faculty')->get();
+
+            return view('admin.faculty.edit', compact('faculty','users'));
         } catch (\Exception $e) {
             Log::error('Faculty edit error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Faculty not found.');
@@ -146,9 +146,8 @@ class FacultyController extends Controller
             $faculty = Faculty::findOrFail($id);
 
             $validator = Validator::make($request->all(), [
-                'name' => 'required|string|max:100',
-                'email' => 'required|email|unique:users,email,' . $faculty->user_id,
-                'phone' => 'nullable|string|max:15',
+                'user_id'=>'required',
+                'employee_id'=>'required',
                 'department' => 'nullable|string|max:100',
                 'specialization' => 'nullable|string|max:100',
                 'qualification' => 'nullable|string|max:255',
@@ -156,19 +155,16 @@ class FacultyController extends Controller
                 'salary' => 'nullable|numeric',
                 'office_hours' => 'nullable|string|max:255',
                 'bio' => 'nullable|string',
+                'status'=>'required'
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $faculty->user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-            ]);
-
             $faculty->update([
+                'user_id' => $request->user_id,
+                'employee_id' => $request->employee_id,
                 'department' => $request->department,
                 'specialization' => $request->specialization,
                 'qualification' => $request->qualification,
@@ -176,6 +172,7 @@ class FacultyController extends Controller
                 'salary' => $request->salary,
                 'office_hours' => $request->office_hours,
                 'bio' => $request->bio,
+                'status' => $request->status,
             ]);
 
             Log::info('Faculty updated: ' . $faculty->id);
