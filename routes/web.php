@@ -149,9 +149,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/course/{courseId}', [AttendanceController::class, 'byCourse'])->name('byCourse'); // Attendance by course
         Route::post('/mark', [AttendanceController::class, 'mark'])->name('mark');             // Mark attendance
         Route::get('/student/{studentId}', [AttendanceController::class, 'studentAttendance'])->name('student'); // Student attendance
-        Route::get('/report', [AttendanceController::class, 'report'])->name('report');        // Attendance report
+        // Route::get('/report', [AttendanceController::class, 'report'])->name('report');        // Attendance report
         Route::post('/{id}/edit', [AttendanceController::class, 'updateAttendance'])->name('update'); // Update attendance
         Route::get('/create', [AttendanceController::class, 'create'])->name('create');
+        Route::get('/daily-report', [AttendanceController::class, 'dailyReport'])->name('dailyReport');
+        Route::get('/monthly-report', [AttendanceController::class, 'monthlyReport'])->name('monthlyReport');
         });
     
     // ============================================

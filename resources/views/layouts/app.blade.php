@@ -202,6 +202,24 @@
                        <i class="fas fa-chalkboard-user"></i> Mark Attendance
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('admin.attendance.dailyReport') }}">
+                        Daily Report
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.attendance.monthlyReport') }}">
+                        Monthly Report
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.fees.report') }}">
+                        Monthly Collection Reports
+                    </a>
+                </li>
                 
 
                 

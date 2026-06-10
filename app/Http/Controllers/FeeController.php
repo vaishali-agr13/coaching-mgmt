@@ -271,16 +271,16 @@ class FeeController extends Controller
     {
         try {
             $totalFee = Fee::sum('fee_amount');
-            $totalCollected = FeePayment::sum('amount_paid');
+            $totalCollected = Fee::sum('paid_amount');
             $pendingFee = $totalFee - $totalCollected;
             $percentage = $totalFee > 0 ? round(($totalCollected / $totalFee) * 100, 2) : 0;
             
-            $feesByStatus = Fee::selectRaw('status, COUNT(*) as count, SUM(fee_amount) as total')
-                ->groupBy('status')
-                ->get();
+            // $feesByStatus = Fee::selectRaw('status, COUNT(*) as count, SUM(fee_amount) as total')
+            //     ->groupBy('status')
+            //     ->get();
             
             return view('admin.fees.report', compact(
-                'totalFee', 'totalCollected', 'pendingFee', 'percentage', 'feesByStatus'
+                'totalFee', 'totalCollected', 'pendingFee', 'percentage'
             ));
         } catch (\Exception $e) {
             Log::error('Collection report error: ' . $e->getMessage());

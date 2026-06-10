@@ -162,22 +162,63 @@ class AttendanceController extends Controller
     /**
      * Attendance report
      */
-    public function report(Request $request)
-    {
-        try {
-            $query = Student::with(['attendance' => function($q) {
-                $q->selectRaw('student_id, COUNT(*) as total, 
-                    SUM(CASE WHEN status = "present" THEN 1 ELSE 0 END) as present');
-            }])->where('status', 'active');
+    // public function report(Request $request)
+    // {
+    //     try {
+    //         $query = Student::with(['attendance' => function($q) {
+    //             $q->selectRaw('student_id, COUNT(*) as total, 
+    //                 SUM(CASE WHEN status = "present" THEN 1 ELSE 0 END) as present');
+    //         }])->where('status', 'active');
             
-            $students = $query->get();
+    //         $students = $query->get();
             
-            return view('admin.attendance.report', compact('students'));
-        } catch (\Exception $e) {
-            Log::error('Attendance report error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Error loading report.');
+    //         return view('admin.attendance.report', compact('students'));
+    //     } catch (\Exception $e) {
+    //         Log::error('Attendance report error: ' . $e->getMessage());
+    //         return redirect()->back()->with('error', 'Error loading report.');
+    //     }
+    // }
+
+    public function dailyReport(Request $request)
+        {
+            $date = $request->date ?? date('Y-m-d');
+
+            $attendance = Attendance::with([
+                    'student.user',
+                    'course'
+                ])
+                ->whereDate('attendance_date', $date)
+                ->get();
+
+            return view(
+                'admin.attendance.daily-report',
+                compact('attendance', 'date')
+            );
         }
-    }
+
+
+        public function monthlyReport(Request $request)
+        {
+            $month = $request->month ?? date('m');
+            $year  = $request->year ?? date('Y');
+
+            $report = Attendance::selectRaw("
+                    student_id,
+                    COUNT(*) as total_days,
+                    SUM(CASE WHEN status='present' THEN 1 ELSE 0 END) as present_days,
+                    SUM(CASE WHEN status='absent' THEN 1 ELSE 0 END) as absent_days
+                ")
+                ->with('student.user')
+                ->whereMonth('attendance_date', $month)
+                ->whereYear('attendance_date', $year)
+                ->groupBy('student_id')
+                ->get();
+
+            return view(
+                'admin.attendance.monthly-report',
+                compact('report','month','year')
+            );
+        }
 
     /**
      * Update attendance
