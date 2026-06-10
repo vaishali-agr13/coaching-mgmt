@@ -37,7 +37,14 @@
                             <span class="badge bg-info">{{ $user->role }}</span>
                         </td>
                         <td>
+
+                        @if($user->role == 'student')
+                            <a href="{{ route('admin.students.edit', $user->id) }}" class="btn btn-warning">
+                                Edit
+                            </a>
+                        @elseif($user->role == 'faculty')
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        @endif
 
                             <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                                 @csrf

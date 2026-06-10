@@ -135,6 +135,7 @@ class StudentController extends Controller
 
             $student = Student::with('user', 'enrollments', 'fees', 'examResults', 'attendance')->findOrFail($id);
             $assignedCourses = $student->enrollments->pluck('course_id')->toArray();
+           
             return view('admin.students.show', compact('student','courses','assignedCourses'));
         } catch (\Exception $e) {
                 Log::error('Student show error', [
@@ -152,7 +153,9 @@ class StudentController extends Controller
     public function edit($id)
     {
         try {
-            $student = Student::with('user')->findOrFail($id);
+
+            $student = Student::with('user')->where('user_id', $id)->firstOrFail();
+        
             return view('admin.students.edit', compact('student'));
         } catch (\Exception $e) {
             Log::error('Student edit error: ' . $e->getMessage());

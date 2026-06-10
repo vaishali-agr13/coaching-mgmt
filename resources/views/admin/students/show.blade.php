@@ -481,7 +481,7 @@
                                 <div class="card text-center bg-light">
                                     <div class="card-body">
                                         <h6 class="card-title text-muted">Paid</h6>
-                                        <h3 class="text-success">₹{{ number_format($student->fees->sum(function($fee) { return $fee->payments->sum('amount_paid'); }), 2) }}</h3>
+                                        <h3 class="text-success">₹{{number_format($student->fees->sum('paid_amount'), 2) }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -489,7 +489,7 @@
                                 <div class="card text-center bg-light">
                                     <div class="card-body">
                                         <h6 class="card-title text-muted">Pending</h6>
-                                        <h3 class="text-warning">₹{{ number_format($student->fees->sum('fee_amount') - $student->fees->sum(function($fee) { return $fee->payments->sum('amount_paid'); }), 2) }}</h3>
+                                        <h3 class="text-warning">₹{{ number_format($student->fees->sum('fee_amount') - $student->fees->sum('paid_amount'), 2) }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -530,8 +530,8 @@
                                             </td>
                                             <td>₹{{ number_format($fee->fee_amount, 2) }}</td>
                                             <td>{{ \Carbon\Carbon::parse($fee->due_date)->format('d M Y') }}</td>
-                                            <td>₹{{ number_format($fee->payments->sum('amount_paid'), 2) }}</td>
-                                            <td>₹{{ number_format($fee->fee_amount - $fee->payments->sum('amount_paid'), 2) }}</td>
+                                            <td>₹{{ number_format($fee->paid_amount, 2) }}</td>
+                                            <td>₹{{ number_format($fee->fee_amount - $fee->paid_amount, 2) }}</td>
                                             <td>
                                                 @if($fee->status === 'paid')
                                                     <span class="badge bg-success">Paid</span>

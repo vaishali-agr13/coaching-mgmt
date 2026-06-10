@@ -52,8 +52,12 @@ class FacultyController extends Controller
      */
     public function create()
     {
-        $users = User::where('role', 'faculty')->get();
+            $facultyUserIds = Faculty::pluck('user_id');
 
+            $users = User::where('role', 'faculty')
+                           ->whereNotIn('id', $facultyUserIds)
+                           ->orderBy('name')
+                           ->get();
         return view('admin.faculty.create',compact('users'));
     }
 
