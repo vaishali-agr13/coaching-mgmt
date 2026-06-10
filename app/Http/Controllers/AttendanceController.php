@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Course;
+use App\Models\CourseEnrollment;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -77,6 +78,7 @@ class AttendanceController extends Controller
             ]);
 
             if ($validator->fails()) {
+
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
@@ -107,12 +109,28 @@ class AttendanceController extends Controller
         }
     }
 
+
+    public function create(Request $request)
+        {
+            $courses = Course::all();
+            $students = collect();
+             if ($request->filled('course_id')) {
+
+                $students = CourseEnrollment::with('student.user')
+                    ->where('course_id', $request->course_id)
+                    ->get()
+                    ->pluck('student');
+              }
+
+            return view('admin.attendance.create', compact('students','courses'));
+        }
     /**
      * Student attendance
      */
     public function studentAttendance($studentId, Request $request)
     {
         try {
+            
             $student = Student::with('user')->findOrFail($studentId);
             
             $query = Attendance::where('student_id', $studentId)
@@ -132,7 +150,7 @@ class AttendanceController extends Controller
                 ->where('status', 'absent')->count();
             $percentage = $total > 0 ? round(($present / $total) * 100, 2) : 0;
             
-            return view('admin.attendance.student', compact(
+            return view('admin.students.attendance', compact(
                 'student', 'attendance', 'total', 'present', 'absent', 'percentage'
             ));
         } catch (\Exception $e) {

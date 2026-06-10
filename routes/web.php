@@ -85,7 +85,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::delete('/{id}', [StudentController::class, 'destroy'])->name('destroy');        // Delete student
         Route::get('/{id}/profile', [StudentController::class, 'profile'])->name('profile');   // Student profile
         Route::post('/{id}/status', [StudentController::class, 'updateStatus'])->name('updateStatus'); // Change status
+        Route::get('/{id}/courses',[StudentController::class,'courses'])->name('courses');
+        Route::get('/{id}/results', [StudentController::class, 'results'])->name('results');
+
+        Route::post('/{id}/assign-course',[StudentController::class,'assignCourse'])->name('assignCourse'); 
     });
+
     
     // ============================================
     // FACULTY MANAGEMENT
@@ -145,7 +150,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/student/{studentId}', [AttendanceController::class, 'studentAttendance'])->name('student'); // Student attendance
         Route::get('/report', [AttendanceController::class, 'report'])->name('report');        // Attendance report
         Route::post('/{id}/edit', [AttendanceController::class, 'updateAttendance'])->name('update'); // Update attendance
-    });
+        Route::get('/create', [AttendanceController::class, 'create'])->name('create');
+        });
     
     // ============================================
     // FEE MANAGEMENT

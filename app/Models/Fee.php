@@ -15,14 +15,19 @@ class Fee extends Model
         'student_id',
         'course_id',
         'fee_amount',
-        'due_date',
+        'paid_amount',
+        'due_amount',
+        'payment_date',
+        'payment_mode',
+        'transaction_id',
         'fee_type',
         'status',
+
     ];
 
     protected $casts = [
         'fee_amount' => 'decimal:2',
-        'due_date' => 'date',
+        'payment_date' => 'date',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -39,6 +44,6 @@ class Fee extends Model
 
     public function payments()
     {
-        return $this->hasMany(FeePayment::class);
+        return $this->hasMany(FeePayment::class, 'fee_id');
     }
 }

@@ -172,16 +172,39 @@
                         <i class="fas fa-users"></i> Users
                     </a>
                 </li>
-                <li>
-                    <a href="/admin/students">
-                        <i class="fas fa-users"></i> Students
-                    </a>
-                </li>
+
                 <li>
                     <a href="/admin/faculty">
                         <i class="fas fa-chalkboard-user"></i> Faculty
                     </a>
                 </li>
+
+                <li>
+                    <a href="/admin/students">
+                        <i class="fas fa-users"></i> Students
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.courses.index') }}">
+                       <i class="fas fa-chalkboard-user"></i> Course 
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.fees.index') }}">
+                       <i class="fas fa-chalkboard-user"></i> Fee 
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="{{ route('admin.attendance.create') }}">
+                       <i class="fas fa-chalkboard-user"></i> Mark Attendance
+                    </a>
+                </li>
+                
+
+                
                 <!-- <li>
                     <a href="#">
                         <i class="fas fa-book"></i> Courses

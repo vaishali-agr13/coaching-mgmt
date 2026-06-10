@@ -17,7 +17,7 @@ class CourseEnrollment extends Model
         'enrollment_date',
         'completion_date',
         'status',
-        'grade',
+        'progress_percentage',
     ];
 
     protected $casts = [

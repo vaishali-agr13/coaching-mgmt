@@ -34,6 +34,7 @@ class FeeController extends Controller
             $fees = $query->paginate(15);
             return view('admin.fees.index', compact('fees'));
         } catch (\Exception $e) {
+             echo $e->getMessage();die;
             Log::error('Fee index error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error loading fees.');
         }
@@ -65,21 +66,23 @@ class FeeController extends Controller
                 'student_id' => 'required|exists:students,id',
                 'course_id' => 'required|exists:courses,id',
                 'fee_amount' => 'required|numeric|min:0',
-                'due_date' => 'required|date',
                 'fee_type' => 'required|in:tuition,exam,library,lab,activity,other',
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-
-            Fee::create([
+            $fee = Fee::create([
                 'student_id' => $request->student_id,
                 'course_id' => $request->course_id,
                 'fee_amount' => $request->fee_amount,
-                'due_date' => $request->due_date,
+                'paid_amount' => $request->paid_amount,
+                'due_amount' => $request->due_amount,
+                'payment_date' => $request->payment_date,
+                'payment_mode' => $request->payment_mode,
+                'transaction_id'=>$request->transaction_id,
                 'fee_type' => $request->fee_type,
-                'status' => 'pending',
+                'status' => $request->status,
             ]);
 
             Log::info('Fee created for student: ' . $request->student_id);
@@ -87,6 +90,7 @@ class FeeController extends Controller
                 ->with('success', 'Fee created successfully.');
 
         } catch (\Exception $e) {
+            echo 'here'; die;
             Log::error('Fee store error: ' . $e->getMessage());
             return redirect()->back()
                 ->with('error', 'Error creating fee.')
@@ -135,7 +139,6 @@ class FeeController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'fee_amount' => 'required|numeric|min:0',
-                'due_date' => 'required|date',
                 'fee_type' => 'required|in:tuition,exam,library,lab,activity,other',
                 'status' => 'required|in:pending,partial,paid,overdue,waived',
             ]);
@@ -145,8 +148,14 @@ class FeeController extends Controller
             }
 
             $fee->update([
+                'student_id' => $request->student_id,
+                'course_id' => $request->course_id,
                 'fee_amount' => $request->fee_amount,
-                'due_date' => $request->due_date,
+                'paid_amount' => $request->paid_amount,
+                'due_amount' => $request->due_amount,
+                'payment_date' => $request->payment_date,
+                'payment_mode' => $request->payment_mode,
+                'transaction_id'=>$request->transaction_id,
                 'fee_type' => $request->fee_type,
                 'status' => $request->status,
             ]);

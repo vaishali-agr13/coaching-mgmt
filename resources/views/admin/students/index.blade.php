@@ -162,6 +162,29 @@
                                             onclick="deleteStudent({{ $student->id }})" title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </button>
+                                    
+
+                                    <a href="{{ route('admin.students.profile',$student->id) }}"
+                                    class="btn btn-primary btn-sm">
+                                    Profile
+                                    </a>
+
+
+                                    <a href="{{ route('admin.attendance.student',$student->id) }}"
+                                    class="btn btn-secondary btn-sm">
+                                    Attendance
+                                    </a>
+
+                                    <a href="{{ route('admin.fees.student',$student->id) }}"
+                                    class="btn btn-success btn-sm">
+                                    Fees
+                                    </a>
+
+                                    <a href="{{ route('admin.students.results',$student->id) }}"
+                                    class="btn btn-dark btn-sm">
+                                    Results
+                                    </a>
+
                                 </div>
                             </td>
                         </tr>

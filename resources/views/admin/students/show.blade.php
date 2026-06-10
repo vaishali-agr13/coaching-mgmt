@@ -212,10 +212,43 @@
                                 <span class="text-muted">Not provided</span>
                             @endif
                         </p>
+                     
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-users"></i>  Assign Course</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                           <form id="assignCourseForm" action="{{ route('admin.students.assignCourse', $student->id) }}"
+                        method="POST">
+
+                        @csrf
+
+                        <select name="course_id" id="course_id" class="form-control">
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}">
+                                    {{ $course->course_name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <button type="submit" class="btn btn-primary mt-2">
+                            Assign Course
+                        </button>
+
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
     </div>
 
     <!-- Address Information Card -->
@@ -716,5 +749,21 @@
         deleteForm.action = `/admin/students/${studentId}`;
         deleteModal.show();
     }
+
+    //for assigned duplicate course 
+    const assignedCourses = @json($assignedCourses);
+    document.getElementById('assignCourseForm')
+        .addEventListener('submit', function(e) {
+
+            let courseId = parseInt(
+                document.getElementById('course_id').value
+            );
+
+            if (assignedCourses.includes(courseId)) {
+                e.preventDefault();
+                alert('This course is already assigned.');
+            }
+    });
+
 </script>
 @endsection

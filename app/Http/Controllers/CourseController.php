@@ -46,8 +46,8 @@ class CourseController extends Controller
     public function create()
     {
         try {
-            $faculty = Faculty::where('status', 'active')->get();
-            return view('admin.courses.create', compact('faculty'));
+            $faculties  = Faculty::where('status', 'active')->get();
+            return view('admin.courses.create', compact('faculties'));
         } catch (\Exception $e) {
             Log::error('Course create error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error loading form.');
@@ -161,6 +161,7 @@ class CourseController extends Controller
 
             $course->update([
                 'course_name' => $request->course_name,
+                'course_code'=>$request->course_code,
                 'description' => $request->description,
                 'category' => $request->category,
                 'level' => $request->level,

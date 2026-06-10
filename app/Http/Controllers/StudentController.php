@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
+use App\Models\CourseEnrollment;
+
 use App\Models\User;
+use App\Models\Course;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -127,8 +131,11 @@ class StudentController extends Controller
     {
         
         try {
+            $courses = Course::where('status', 'active')->get();
+
             $student = Student::with('user', 'enrollments', 'fees', 'examResults', 'attendance')->findOrFail($id);
-            return view('admin.students.show', compact('student'));
+            $assignedCourses = $student->enrollments->pluck('course_id')->toArray();
+            return view('admin.students.show', compact('student','courses','assignedCourses'));
         } catch (\Exception $e) {
                 Log::error('Student show error', [
                     'message' => $e->getMessage(),
@@ -248,6 +255,39 @@ class StudentController extends Controller
             return redirect()->back()->with('error', 'Student not found.');
         }
     }
+
+
+    public function results($id)
+    {
+        $student = Student::with('user','examResults.exam')
+            ->findOrFail($id);
+
+        return view('admin.students.results', compact('student'));
+    }
+
+    public function courses($id)
+        {
+            $student = Student::with('enrollments.course')
+                ->findOrFail($id);
+
+            $courses = Course::where('status','active')->get();
+
+            return view('admin.students.courses',
+                compact('student','courses'));
+        }
+
+
+    public function assignCourse(Request $request,$id)
+        {
+            CourseEnrollment::create([
+                'student_id' => $id,
+                'course_id' => $request->course_id,
+                'enrollment_date' => now(),
+                'status' => 'enrolled'
+            ]);
+
+            return back()->with('success','Course assigned successfully.');
+        }
 
     /**
      * Update student status
