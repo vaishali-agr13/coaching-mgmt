@@ -62,40 +62,7 @@
     </div>
 
     <!-- Statistics Cards -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title text-muted">Total Students</h5>
-                    <h2 class="text-primary">{{ \App\Models\Student::where('status', 'active')->count() }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title text-muted">Inactive</h5>
-                    <h2 class="text-warning">{{ \App\Models\Student::where('status', 'inactive')->count() }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title text-muted">Graduated</h5>
-                    <h2 class="text-success">{{ \App\Models\Student::where('status', 'graduated')->count() }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title text-muted">Dropped</h5>
-                    <h2 class="text-danger">{{ \App\Models\Student::where('status', 'dropped')->count() }}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- Students Table -->
     <div class="card">
