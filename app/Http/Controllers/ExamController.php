@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 
 class ExamController extends Controller
 {
+
     /**
      * Display a listing of exams
      */
@@ -160,10 +161,12 @@ class ExamController extends Controller
             ]);
 
             if ($validator->fails()) {
+    dd($validator->errors());
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
             $exam->update([
+                'exam_code' => $request->exam_code,
                 'exam_name' => $request->exam_name,
                 'exam_type' => $request->exam_type,
                 'exam_date' => $request->exam_date,
@@ -180,6 +183,7 @@ class ExamController extends Controller
                 ->with('success', 'Exam updated successfully.');
 
         } catch (\Exception $e) {
+            echo  $e->getMessage();die;
             Log::error('Exam update error: ' . $e->getMessage());
             return redirect()->back()
                 ->with('error', 'Error updating exam.')
@@ -213,7 +217,9 @@ class ExamController extends Controller
     {
         try {
             $exam = Exam::with(['results.student.user'])->findOrFail($id);
-            return view('admin.exams.results', compact('exam'));
+            $students = Student::with('user')->get();
+
+            return view('admin.exams.results', compact('exam','students'));
         } catch (\Exception $e) {
             Log::error('Exam results error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Exam not found.');
@@ -336,7 +342,7 @@ class ExamController extends Controller
             $exam->update(['status' => 'completed']);
 
             Log::info('Exam results published: ' . $id);
-            return redirect()->back()
+            return redirect()->route('admin.exams.publishedResults', $id)
                 ->with('success', 'Results published successfully.');
 
         } catch (\Exception $e) {
@@ -344,6 +350,22 @@ class ExamController extends Controller
             return redirect()->back()->with('error', 'Error publishing results.');
         }
     }
+
+    public function publishedResults($id)
+     {
+           $exam = Exam::with([
+                'results.student.user'
+            ])->findOrFail($id);
+
+            $results = $exam->results
+                ->sortByDesc('percentage')
+                ->values();
+
+            return view(
+                'admin.exams.published-results',
+                compact('exam', 'results')
+            );
+      }
 
     /**
      * Calculate grade based on percentage
@@ -357,4 +379,111 @@ class ExamController extends Controller
         if ($percentage >= 50) return 'D';
         return 'F';
     }
+
+    public function rankList($id)
+        {
+            try {
+
+                $exam = Exam::with([
+                    'results.student.user'
+                ])->findOrFail($id);
+
+                $results = ExamResult::with([
+                        'student.user'
+                    ])
+                    ->where('exam_id', $id)
+                    ->orderByDesc('percentage')
+                    ->get();
+
+                return view(
+                    'admin.exams.rank-list',
+                    compact('exam', 'results')
+                );
+
+            } catch (\Exception $e) {
+
+                Log::error(
+                    'Rank List Error: ' .
+                    $e->getMessage()
+                );
+
+                return redirect()
+                    ->back()
+                    ->with(
+                        'error',
+                        'Unable to load rank list.'
+                    );
+            }
+        }
+
+        public function performanceAnalysis($id)
+        {
+            try {
+
+                $exam = Exam::with([
+                    'results.student.user'
+                ])->findOrFail($id);
+
+                $results = $exam->results;
+
+                $totalStudents = $results->count();
+
+                $averageMarks = round(
+                    $results->avg('marks_obtained'),
+                    2
+                );
+
+                $averagePercentage = round(
+                    $results->avg('percentage'),
+                    2
+                );
+
+                $highestMarks = $results->max('marks_obtained');
+
+                $lowestMarks = $results->min('marks_obtained');
+
+                $passCount = $results
+                    ->where(
+                        'marks_obtained',
+                        '>=',
+                        $exam->passing_marks
+                    )
+                    ->count();
+
+                $failCount = $totalStudents - $passCount;
+
+                $passPercentage = $totalStudents > 0
+                    ? round(($passCount / $totalStudents) * 100, 2)
+                    : 0;
+
+                return view(
+                    'admin.exams.performance-analysis',
+                    compact(
+                        'exam',
+                        'totalStudents',
+                        'averageMarks',
+                        'averagePercentage',
+                        'highestMarks',
+                        'lowestMarks',
+                        'passCount',
+                        'failCount',
+                        'passPercentage'
+                    )
+                );
+
+            } catch (\Exception $e) {
+
+                Log::error(
+                    'Performance Analysis Error: ' .
+                    $e->getMessage()
+                );
+
+                return redirect()
+                    ->back()
+                    ->with(
+                        'error',
+                        'Unable to load performance analysis.'
+                    );
+            }
+        }
 }

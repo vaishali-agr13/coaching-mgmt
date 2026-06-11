@@ -188,7 +188,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/result/{resultId}/edit', [ExamController::class, 'editResult'])->name('editResult'); // Edit result
         Route::put('/result/{resultId}', [ExamController::class, 'updateResult'])->name('updateResult'); // Update result
         Route::post('/{id}/publish', [ExamController::class, 'publishResults'])->name('publish'); // Publish results
-    });
+        Route::get('/{id}/published-results',[ExamController::class, 'publishedResults'])->name('publishedResults');   
+        Route::get('/{id}/rank-list',[ExamController::class, 'rankList'])->name('rankList');
+        Route::get('/{id}/performance-analysis',[ExamController::class, 'performanceAnalysis'])->name('analysis');     
+     
+   });
     
     // ============================================
     // STUDY MATERIAL MANAGEMENT

@@ -220,6 +220,13 @@
                         Monthly Collection Reports
                     </a>
                 </li>
+
+                
+                <li>
+                    <a href="{{ route('admin.exams.index') }}">
+                        Exams
+                    </a>
+                </li>
                 
 
                 

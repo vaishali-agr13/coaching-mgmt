@@ -188,6 +188,11 @@
                                     Results
                                 </a>
 
+                                <!-- <a href="{{ route('admin.exams.results',$exam->id) }}"
+                                    class="btn btn-success btn-sm">
+                                    Upload Marks
+                                </a> -->
+                                
                                 <form action="{{ route('admin.exams.destroy',$exam->id) }}"
                                       method="POST"
                                       class="d-inline">
