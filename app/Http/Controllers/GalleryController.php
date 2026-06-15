@@ -41,7 +41,7 @@ class GalleryController extends Controller
      */
     public function createAlbum()
     {
-        return view('admin.gallery.create-album');
+        return view('admin.gallery.create');
     }
 
     /**
@@ -97,7 +97,7 @@ class GalleryController extends Controller
     {
         try {
             $album = GalleryAlbum::with('images', 'created_by')->findOrFail($albumId);
-            return view('admin.gallery.show-album', compact('album'));
+            return view('admin.gallery.show', compact('album'));
         } catch (\Exception $e) {
             Log::error('Gallery show album error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Album not found.');
@@ -111,7 +111,7 @@ class GalleryController extends Controller
     {
         try {
             $album = GalleryAlbum::findOrFail($albumId);
-            return view('admin.gallery.edit-album', compact('album'));
+            return view('admin.gallery.edit', compact('album'));
         } catch (\Exception $e) {
             Log::error('Gallery edit album error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Album not found.');

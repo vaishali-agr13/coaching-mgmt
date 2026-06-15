@@ -31,9 +31,29 @@ use App\Http\Controllers\ReportController;
 
 // Root route
 Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('admin.dashboard');
-    }
+
+    // if (auth()->check()) {
+
+    //     $role = auth()->user()->role;
+
+    //     switch ($role) {
+
+    //         case 'admin':
+    //             return redirect()->route('admin.dashboard');
+
+    //         case 'faculty':
+    //             return redirect()->route('admin.faculty.dashboard');
+
+    //         case 'student':
+    //             return redirect()->route('admin.students.dashboard');
+
+    //         default:
+    //             Auth::logout();
+
+    //             return redirect()->route('login')
+    //                 ->with('error', 'Invalid user role.');
+    //     }
+    // }
 
     return view('front-end.welcome');
 });
@@ -77,6 +97,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // STUDENT MANAGEMENT
     // ============================================
     Route::prefix('students')->name('students.')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
         Route::get('/', [StudentController::class, 'index'])->name('index');                    // List all students
         Route::get('/create', [StudentController::class, 'create'])->name('create');            // Create form
         Route::post('/', [StudentController::class, 'store'])->name('store');                  // Store student
@@ -97,6 +119,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // FACULTY MANAGEMENT
     // ============================================
     Route::prefix('faculty')->name('faculty.')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
         Route::get('/', [FacultyController::class, 'index'])->name('index');                   // List all faculty
         Route::get('/create', [FacultyController::class, 'create'])->name('create');           // Create form
         Route::post('/', [FacultyController::class, 'store'])->name('store');                  // Store faculty

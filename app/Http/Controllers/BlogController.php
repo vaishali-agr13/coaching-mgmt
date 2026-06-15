@@ -22,10 +22,12 @@ class BlogController extends Controller
             $query = BlogPost::with('author');
             
             if ($request->search) {
-                $query->where('title', 'LIKE', "%{$request->search}%")
-                      ->orWhere('content', 'LIKE', "%{$request->search}%");
+                $query->where(function ($q) use ($request) {
+                    $q->where('title', 'LIKE', "%{$request->search}%")
+                    ->orWhere('content', 'LIKE', "%{$request->search}%");
+                });
             }
-            
+
             if ($request->status) {
                 $query->where('status', $request->status);
             }

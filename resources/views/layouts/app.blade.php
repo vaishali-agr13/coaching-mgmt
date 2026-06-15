@@ -26,13 +26,14 @@
         .sidebar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            min-height: 100vh;
-            padding: 20px 0;
-            position: fixed;
+            height: 100vh;          /* important */
             width: 250px;
+            position: fixed;
             left: 0;
             top: 0;
-            overflow-y: auto;
+
+            overflow-y: auto;       /* scroll enable */
+            overflow-x: hidden;
         }
 
         .sidebar .logo {
@@ -161,6 +162,8 @@
             </div>
 
             <ul class="nav-menu">
+             @if(auth()->user()->role == 'admin')
+
                 <li>
                     <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName() === 'admin.dashboard') active @endif">
                         <i class="fas fa-chart-line"></i> Dashboard
@@ -169,64 +172,129 @@
 
                 <li>
                     <a href="/admin/users">
-                        <i class="fas fa-users"></i> Users
+                       <i class="fas fa-users"></i> Users
                     </a>
                 </li>
 
                 <li>
                     <a href="/admin/faculty">
-                        <i class="fas fa-chalkboard-user"></i> Faculty
+                        <i class="fas fa-chalkboard-teacher"></i></i> Faculty
                     </a>
                 </li>
 
                 <li>
                     <a href="/admin/students">
-                        <i class="fas fa-users"></i> Students
+                        <i class="fas fa-user-graduate"></i> Students
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.courses.index') }}">
-                       <i class="fas fa-chalkboard-user"></i> Course 
+                       <i class="fas fa-book-open"></i>  Course 
+                    </a>
+                </li>
+
+                <li>
+
+                    <a href="{{ route('admin.study-materials.index') }}">
+                       <i class="fas fa-folder-open"></i> Study Material
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.exams.index') }}">
+                       <i class="fas fa-file-alt"></i>  Exams
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.attendance.create') }}">
+                       <i class="fas fa-user-check"></i> Mark Attendance
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.fees.index') }}">
-                       <i class="fas fa-chalkboard-user"></i> Fee 
+                       <i class="fas fa-money-bill-wave"></i> Fee 
+                    </a>
+                </li>
+
+                
+                <li>
+                    <a href="{{ route('admin.fees.report') }}">
+                       <i class="fas fa-coins"></i> Monthly Collection Reports
                     </a>
                 </li>
                 
                 <li>
-                    <a href="{{ route('admin.attendance.create') }}">
-                       <i class="fas fa-chalkboard-user"></i> Mark Attendance
+
+                    <a href="{{ route('admin.admissions.report') }}">
+                       <i class="fas fa-user-plus"></i>  Admission Report
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.attendance.dailyReport') }}">
-                        Daily Report
+                        <i class="fas fa-calendar-day"></i> Daily Report
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.attendance.monthlyReport') }}">
-                        Monthly Report
+                       <i class="fas fa-calendar-alt"></i> Monthly Report
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{ route('admin.fees.report') }}">
-                        Monthly Collection Reports
-                    </a>
-                </li>
 
                 
+                
+                
                 <li>
-                    <a href="{{ route('admin.exams.index') }}">
-                        Exams
+
+                    <a href="{{ route('admin.reports.index') }}">
+                    <i class="fas fa-chart-line"></i> Reports & Analytics
+
                     </a>
                 </li>
+
+                 <li>
+
+                    <a href="{{ route('admin.gallery.index') }}">
+                       <i class="fas fa-blog"></i> Gallery
+                    </a>
+                </li>
+
+                <li>
+
+                    <a href="{{ route('admin.blog.index') }}">
+                       <i class="fas fa-blog"></i> Blog
+                    </a>
+                </li>
+
+            @endif
+
+
+             @if(auth()->user()->role == 'student')
+
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <p>My Profile</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <p>My Attendance</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <p>My Results</p>
+                    </a>
+                </li>
+
+            @endif
                 
 
                 
@@ -280,6 +348,7 @@
                         <i class="fas fa-chart-bar"></i> Reports
                     </a>
                 </li> -->
+            
             </ul>
         </div>
 

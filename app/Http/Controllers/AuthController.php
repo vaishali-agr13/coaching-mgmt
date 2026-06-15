@@ -25,78 +25,95 @@ class AuthController extends Controller
     /**
      * Handle login request
      */
-    public function login(Request $request)
-    {
-        try {
-            // Validate input
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required|min:6',
-            ], [
-                'email.required' => 'Email address is required.',
-                'email.email' => 'Please enter a valid email address.',
-                'password.required' => 'Password is required.',
-                'password.min' => 'Password must be at least 6 characters.',
-            ]);
+        public function login(Request $request)
+        {
+            try {
 
-            if ($validator->fails()) {
+                $validator = Validator::make($request->all(), [
+                    'email' => 'required|email',
+                    'password' => 'required|min:6',
+                ], [
+                    'email.required' => 'Email address is required.',
+                    'email.email' => 'Please enter a valid email address.',
+                    'password.required' => 'Password is required.',
+                    'password.min' => 'Password must be at least 6 characters.',
+                ]);
+
+                if ($validator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput($request->except('password'));
+                }
+
+                $user = User::where('email', $request->email)->first();
+
+                if (!$user) {
+                    Log::warning('Login attempt with non-existent email: ' . $request->email);
+
+                    return redirect()->back()
+                        ->with('error', 'Invalid email or password.')
+                        ->withInput($request->except('password'));
+                }
+
+                // Active Status Check
+                if ($user->status !== 'active') {
+
+                    Log::warning('Login attempt by inactive user: ' . $request->email);
+
+                    return redirect()->back()
+                        ->with('error', 'Your account is currently inactive.')
+                        ->withInput($request->except('password'));
+                }
+
+                // Password Check
+                if (!Hash::check($request->password, $user->password)) {
+
+                    Log::warning('Invalid password attempt for user: ' . $request->email);
+
+                    return redirect()->back()
+                        ->with('error', 'Invalid email or password.')
+                        ->withInput($request->except('password'));
+                }
+
+                // Login User
+                Auth::login($user, $request->remember);
+
+                Log::info('User logged in successfully: ' . $user->email);
+
+                // Role Based Redirect
+                switch ($user->role) {
+
+                    case 'admin':
+
+                        return redirect()->route('admin.dashboard')
+                            ->with('success', 'Welcome Admin ' . $user->name);
+
+                    case 'faculty':
+                        return redirect()->route('admin.faculty.dashboard')
+                            ->with('success', 'Welcome ' . $user->name);
+
+                    case 'student':
+
+                        return redirect()->route('admin.students.dashboard')
+                            ->with('success', 'Welcome ' . $user->name);
+
+                    default:
+
+                        Auth::logout();
+
+                        return redirect()->route('login')
+                            ->with('error', 'Invalid user role.');
+                }
+
+            } catch (\Exception $e) {
+
+                Log::error('Login error: ' . $e->getMessage());
+
                 return redirect()->back()
-                    ->withErrors($validator)
+                    ->with('error', 'An error occurred during login.')
                     ->withInput($request->except('password'));
             }
-
-            // Check if user exists and is admin
-            $user = User::where('email', $request->email)->first();
-
-            if (!$user) {
-                Log::warning('Login attempt with non-existent email: ' . $request->email);
-                return redirect()->back()
-                    ->with('error', 'Invalid email or password.')
-                    ->withInput($request->except('password'));
-            }
-
-            // Check if user is admin
-            if ($user->role !== 'admin') {
-                Log::warning('Login attempt by non-admin user: ' . $request->email);
-                return redirect()->back()
-                    ->with('error', 'Unauthorized access. Only admins can login here.')
-                    ->withInput($request->except('password'));
-            }
-
-            // Check if user is active
-            if ($user->status !== 'active') {
-                Log::warning('Login attempt by inactive user: ' . $request->email);
-                return redirect()->back()
-                    ->with('error', 'Your account is currently inactive. Please contact support.')
-                    ->withInput($request->except('password'));
-            }
-
-            // Verify password
-            if (!Hash::check($request->password, $user->password)) {
-                
-                Log::warning('Invalid password attempt for user: ' . $request->email);
-                return redirect()->back()
-                    ->with('error', 'Invalid email or password.')
-                    ->withInput($request->except('password'));
-            }
-
-            // Authenticate user
-            Auth::login($user, $request->remember);
-
-            // Log successful login
-            Log::info('User logged in successfully: ' . $user->email);
-
-            return redirect()->intended(route('admin.dashboard'))
-                ->with('success', 'Welcome back, ' . $user->name . '!');
-
-        } catch (\Exception $e) {
-            Log::error('Login error: ' . $e->getMessage());
-            return redirect()->back()
-                ->with('error', 'An error occurred during login. Please try again.')
-                ->withInput($request->except('password'));
         }
-    }
-
     /**
      * Show registration form
      */

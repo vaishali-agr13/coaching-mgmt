@@ -207,13 +207,14 @@ class ReportController extends Controller
     public function attendance()
     {
         try {
+          
             $students = Student::with(['attendance' => function($q) {
                 $q->selectRaw('student_id, COUNT(*) as total, 
-                    SUM(CASE WHEN status = "present" THEN 1 ELSE 0 END) as present');
+                    SUM(CASE WHEN status = "present" THEN 1 ELSE 0 END) as present')->groupBy('student_id');
+                    
             }])
                 ->where('status', 'active')
                 ->paginate(20);
-            
             return view('admin.reports.attendance', compact('students'));
         } catch (\Exception $e) {
             Log::error('Attendance report error: ' . $e->getMessage());

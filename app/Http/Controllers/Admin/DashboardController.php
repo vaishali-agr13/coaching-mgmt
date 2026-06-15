@@ -20,6 +20,18 @@ class DashboardController extends Controller
     public function index()
     {
         try {
+
+            $user = auth()->user();
+
+            if ($user->role == 'student') {
+
+                return view('admin.students.dashboard');
+            }
+
+            if ($user->role == 'faculty') {
+
+                return view('admin.faculty.dashboard');
+            }
             // Get dashboard statistics
             $stats = $this->getDashboardStatistics();
 

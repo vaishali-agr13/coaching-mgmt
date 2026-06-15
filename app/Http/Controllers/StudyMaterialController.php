@@ -154,15 +154,18 @@ class StudyMaterialController extends Controller
                 'course_id' => 'required|exists:courses,id',
                 'material_type' => 'required|in:pdf,video,document,presentation,image,audio,other',
                 'chapter_number' => 'nullable|integer',
+                'material_code'=>'required',
                 'order_sequence' => 'nullable|integer',
                 'visibility' => 'required|in:public,private,restricted',
             ]);
 
             if ($validator->fails()) {
+                echo 'here';die;
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
             $material->update([
+                'material_code'=>$request->material_code,
                 'title' => $request->title,
                 'description' => $request->description,
                 'course_id' => $request->course_id,
@@ -177,6 +180,7 @@ class StudyMaterialController extends Controller
                 ->with('success', 'Study material updated successfully.');
 
         } catch (\Exception $e) {
+            echo  $e->getMessage();die;
             Log::error('Study material update error: ' . $e->getMessage());
             return redirect()->back()
                 ->with('error', 'Error updating material.')
