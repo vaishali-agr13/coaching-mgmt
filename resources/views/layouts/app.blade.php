@@ -277,19 +277,25 @@
              @if(auth()->user()->role == 'student')
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <p>My Profile</p>
+                    <a href="{{ route('admin.students.dashboard') }}" class="nav-link">
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.students.profile',auth()->user()->student->id) }}" class="nav-link">
+                        My Profile
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('admin.attendance.student',auth()->user()->student->id) }}"  class="nav-link">
                         <p>My Attendance</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('admin.students.results',auth()->user()->student->id) }}"  class="nav-link">
+
                         <p>My Results</p>
                     </a>
                 </li>

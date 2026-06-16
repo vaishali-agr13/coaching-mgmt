@@ -5,6 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Attendance;
+use App\Models\Homework;
+use App\Models\StudyMaterial;
+use App\Models\ExamResult;
+
+
+use App\Models\CourseEnrollment;
+
 use App\Models\Faculty;
 use App\Models\Course;
 use App\Models\Admission;
@@ -24,8 +32,31 @@ class DashboardController extends Controller
             $user = auth()->user();
 
             if ($user->role == 'student') {
+                $studentStats = $this->getStudentStatistics($user);
+                
 
-                return view('admin.students.dashboard');
+                $attendance = $this->getStudentAttendance($user);
+
+                $fees = $this->getStudentFees($user);
+
+                $homeworks = $this->getStudentHomework($user);
+
+                $studyMaterials = $this->getStudentStudyMaterials($user);
+
+                $upcomingExams = $this->getStudentUpcomingExams($user);
+
+
+                $results = $this->getStudentResults($user);
+
+                return view('admin.students.dashboard.index', compact(
+                            'studentStats',
+                            'attendance',
+                            'fees',
+                            'homeworks',
+                            'studyMaterials',
+                            'upcomingExams',
+                            
+                            'results'));
             }
 
             if ($user->role == 'faculty') {
@@ -33,29 +64,34 @@ class DashboardController extends Controller
                 return view('admin.faculty.dashboard');
             }
             // Get dashboard statistics
-            $stats = $this->getDashboardStatistics();
+            if($user->role == 'admin'){
+                    $stats = $this->getDashboardStatistics();
 
-            // Get recent activities
-            $recentActivities = $this->getRecentActivities();
+                    // Get recent activities
+                    $recentActivities = $this->getRecentActivities();
 
-            // Get attendance overview
-            $attendanceOverview = $this->getAttendanceOverview();
+                    // Get attendance overview
+                    $attendanceOverview = $this->getAttendanceOverview();
 
-            // Get fee collection status
-            $feeStatus = $this->getFeeCollectionStatus();
+                    // Get fee collection status
+                    $feeStatus = $this->getFeeCollectionStatus();
 
-            // Get upcoming exams
-            $upcomingExams = $this->getUpcomingExams();
+                    // Get upcoming exams
+                    $upcomingExams = $this->getUpcomingExams();
+                    return view('admin.dashboard', [
+                                'stats' => $stats,
+                                'recentActivities' => $recentActivities,
+                                'attendanceOverview' => $attendanceOverview,
+                                'feeStatus' => $feeStatus,
+                                'upcomingExams' => $upcomingExams,
+                         ]);
+            }
+            
 
-            return view('admin.dashboard', [
-                'stats' => $stats,
-                'recentActivities' => $recentActivities,
-                'attendanceOverview' => $attendanceOverview,
-                'feeStatus' => $feeStatus,
-                'upcomingExams' => $upcomingExams,
-            ]);
+            
 
         } catch (\Exception $e) {
+           echo $e->getMessage();die;
             \Log::error('Dashboard error: ' . $e->getMessage());
             return view('admin.dashboard')->with('error', 'Error loading dashboard data.');
         }
@@ -79,6 +115,33 @@ class DashboardController extends Controller
             'collected_fees' => $this->calculateCollectedFees(),
         ];
     }
+
+    private function getStudentResults($user)
+        {
+            $studentId = $user->student->id;
+
+            $courseIds = CourseEnrollment::where(
+                'student_id',
+                $studentId
+            )->pluck('course_id');
+
+            return ExamResult::with('exam')
+                ->where(
+                    'student_id',
+                    $studentId
+                )
+                ->whereHas('exam', function ($query) use ($courseIds) {
+
+                    $query->whereIn(
+                        'course_id',
+                        $courseIds
+                    );
+
+                })
+                ->latest('published_date')
+                ->take(5)
+                ->get();
+        }
 
     /**
      * Get recent activities
@@ -202,4 +265,134 @@ class DashboardController extends Controller
         
         return round(($present / $total) * 100, 2);
     }
-}
+
+   
+    private function getStudentStatistics($user)
+        {
+            if (!$user->student) {
+                return [
+                    'total_subjects' => 0,
+                    'attendance_percentage' => 0,
+                    'pending_homeworks' => 0,
+                    'upcoming_exams' => 0,
+                ];
+            }
+
+            $studentId = $user->student->id;
+
+            $courseIds = CourseEnrollment::where(
+                'student_id',
+                $studentId
+            )->pluck('course_id');
+
+            $totalAttendance = Attendance::where(
+                'student_id',
+                $studentId
+            )->count();
+
+            $presentAttendance = Attendance::where(
+                'student_id',
+                $studentId
+            )->where(
+                'status',
+                'Present'
+            )->count();
+
+            $attendancePercentage = $totalAttendance > 0
+                ? round(($presentAttendance / $totalAttendance) * 100, 2)
+                : 0;
+
+            return [
+
+                'total_subjects' => $courseIds->count(),
+
+                'attendance_percentage' => $attendancePercentage,
+
+                'pending_homeworks' => Homework::whereIn(
+                    'course_id',
+                    $courseIds
+                )->where(
+                    'status',
+                    'pending'
+                )->count(),
+
+                'upcoming_exams' => Exam::whereIn(
+                    'course_id',
+                    $courseIds
+                )->whereDate(
+                    'exam_date',
+                    '>=',
+                    now()
+                )->count(),
+            ];
+        }
+    private function getStudentAttendance($user)
+     {
+            return Attendance::where(
+                    'student_id',
+                    $user->student->id
+                )
+                ->latest()
+                ->take(10)
+                ->get();
+     }
+    private function getStudentFees($user)
+    {
+        return Fee::where(
+                'student_id',
+                $user->student->id
+            )
+            ->latest()
+            ->get();
+    }
+
+   private function getStudentHomework($user)
+        {
+            $studentId = $user->student->id;
+
+            $courseIds = CourseEnrollment::where(
+                'student_id',
+                $studentId
+            )->pluck('course_id');
+
+            return Homework::whereIn(
+                    'course_id',
+                    $courseIds
+                )
+                ->latest()
+                ->take(5)
+                ->get();
+        }
+    private function getStudentStudyMaterials($user)
+        {
+            return StudyMaterial::latest()
+                    ->take(5)
+                    ->get();
+        }
+    private function getStudentUpcomingExams($user)
+        {
+            $studentId = $user->student->id;
+
+            $courseIds = CourseEnrollment::where(
+                'student_id',
+                $studentId
+            )->pluck('course_id');
+
+            return Exam::with('course')
+                ->whereIn(
+                    'course_id',
+                    $courseIds
+                )
+                ->whereDate(
+                    'exam_date',
+                    '>=',
+                    now()
+                )
+                ->orderBy(
+                    'exam_date',
+                    'asc'
+                )
+                ->take(5)
+                ->get();
+        }
+    }

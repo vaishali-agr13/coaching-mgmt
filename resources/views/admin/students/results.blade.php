@@ -14,9 +14,9 @@
 
             <thead>
                 <tr>
-                    <th>Exam</th>
-                    <th>Subject</th>
-                    <th>Marks</th>
+                    <th>Exam Name</th>
+                    <th>Exam Code</th>
+                    <th>Obtained Marks</th>
                     <th>Grade</th>
                 </tr>
             </thead>
@@ -27,11 +27,11 @@
 
                 <tr>
 
-                    <td>{{ $result->exam->title ?? '-' }}</td>
+                    <td>{{ $result->exam->exam_name ?? '-' }}</td>
+                   
+                    <td>{{ $result->exam->exam_code ?? '-' }}</td>
 
-                    <td>{{ $result->subject }}</td>
-
-                    <td>{{ $result->marks }}</td>
+                    <td>{{ $result->marks_obtained }}</td>
 
                     <td>{{ $result->grade }}</td>
 

@@ -98,7 +98,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // ============================================
     Route::prefix('students')->name('students.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
         Route::get('/', [StudentController::class, 'index'])->name('index');                    // List all students
         Route::get('/create', [StudentController::class, 'create'])->name('create');            // Create form
         Route::post('/', [StudentController::class, 'store'])->name('store');                  // Store student
