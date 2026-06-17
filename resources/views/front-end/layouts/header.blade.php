@@ -32,15 +32,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 
 <nav>
 
-<a href="#">Home Page</a>
+<a href="/">Home Page</a>
 
 <a href="#">About Us</a>
 
-<a href="#">Courses</a>
+<a href="/courses">Courses</a>
 
-<a href="#">Faculty</a>
+<a href="/faculty">Faculty</a>
 
-<a href="#">Results</a>
+<a href="/result">Results</a>
 <a href="#">Gallery</a>
 <a href="#">Blog</a>
 <a href="#">Online Admission</a>

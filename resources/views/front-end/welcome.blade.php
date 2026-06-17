@@ -41,17 +41,17 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-book-bookmark"></i></div>
-                <h3>4</h3>
+                <h3>{{$activeCoursesCount}}</h3>
                 <p>Trending Live Courses</p>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                <h3>3</h3>
+                <h3>{{$facultyCount}}</h3>
                 <p>Expert Industry Mentors</p>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-user-check"></i></div>
-                <h3>4+</h3>
+                <h3>{{$activeEnrolledStudents}}+</h3>
                 <p>Active Students Enrolled</p>
             </div>
         </div>
@@ -75,13 +75,17 @@
                 
                 <div class="ticker-content-window">
                     <div class="ticker-track">
+
+                    @foreach($latestUpdates as $latestUpdate)
+                    
                         <div class="ticker-item">
-                            <span class="badge-new">NEW</span>
-                            <span class="date-tag">[20-June]:</span> 
-                            Java Full Stack Monthly Mock Test is scheduled at 10:00 AM. 
+                            <span class="badge-new">NEW </span>
+                            <span class="date-tag">[{{ \Carbon\Carbon::parse($latestUpdate['date'])->format('d F') }}]:</span> 
+                            {{ $latestUpdate['title'] }}
                             <i class="fa-solid fa-circle-chevron-right"></i>
                         </div>
-                        <div class="ticker-item">
+                    @endforeach
+                        <!-- <div class="ticker-item">
                             <span class="date-tag">[24-June]:</span> 
                             Python Django Live Project Submission Deadline. 
                             <i class="fa-solid fa-circle-chevron-right"></i>
@@ -107,7 +111,7 @@
                             <i class="fa-solid fa-award"></i>
                             Scholarship Exam Results for Phase-1 are live now in student portal! 
                             <i class="fa-solid fa-circle-chevron-right"></i>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -151,19 +155,20 @@
                 <p>These topics provide a comprehensive framework to structure your book and appeal to both beginners and advanced readers.</p>
             </div>
             <div class="cards-grid">
-                <div class="course-card">
-                    <div class="card-img-placeholder java-color"><i class="fa-brands fa-java"></i></div>
-                    <div class="card-info">
-                        <span class="badge-tag tag-purple">JAVA</span>
-                        <h4>Full Stack Development</h4>
-                        <p>Return the sorted string. If there are multiple answers, return any of them.</p>
+                @foreach($courses as $course)
+                    <div class="course-card">
+                        <div class="card-img-placeholder java-color"><i class="fa-brands fa-java"></i></div>
+                        <div class="card-info">
+                            <span class="badge-tag tag-purple">{{$course->course_code}}</span>
+                            <h4>{{$course->course_name}}</h4>
+                            <p>Return the sorted string. If there are multiple answers, return any of them.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">₹{{$course->fee}}</span>
+                            <a href="#" class="enroll-btn">Enroll Now &rarr;</a>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <span class="price">₹0.00</span>
-                        <a href="#" class="enroll-btn">Enroll Now &rarr;</a>
-                    </div>
-                </div>
-                <div class="course-card">
+                <!-- <div class="course-card">
                     <div class="card-img-placeholder python-color"><i class="fa-brands fa-python"></i></div>
                     <div class="card-info">
                         <span class="badge-tag tag-pink">Python</span>
@@ -186,7 +191,8 @@
                         <span class="price">₹3,000.00</span>
                         <a href="#" class="enroll-btn">Enroll Now &rarr;</a>
                     </div>
-                </div>
+                </div> -->
+                @endforeach
             </div>
         </div>
     </section>
@@ -197,24 +203,28 @@
             <p>Learn directly from industry professionals synced live from your dashboard admin panel.</p>
         </div>
         <div class="faculty-grid">
-            <div class="faculty-card">
-                <div class="faculty-avatar-wrapper"><i class="fa-solid fa-user-tie"></i></div>
-                <h4>Dr. Amit Sharma</h4>
-                <p class="designation">Lead Software Architect</p>
-                <span class="experience">10+ Yrs Exp</span>
-            </div>
-            <div class="faculty-card">
-                <div class="faculty-avatar-wrapper"><i class="fa-solid fa-user-ninja"></i></div>
-                <h4>Er. Neha Verma</h4>
-                <p class="designation">Senior Data Analyst</p>
-                <span class="experience">6+ Yrs Exp</span>
-            </div>
-            <div class="faculty-card">
-                <div class="faculty-avatar-wrapper"><i class="fa-solid fa-user-doctor"></i></div>
-                <h4>Prof. Rajesh Kumar</h4>
-                <p class="designation">Full Stack Developer</p>
-                <span class="experience">8+ Yrs Exp</span>
-            </div>
+            @foreach($faculties as $faculty)
+
+                <div class="faculty-card">
+                    <div class="faculty-avatar-wrapper"><i class="fa-solid fa-user-tie"></i></div>
+                    <h4>{{$faculty->user->name}}</h4>
+                    <p class="designation">{{$faculty->department}}</p>
+                    <span class="experience">{{$faculty->experience_years}}+ Yrs Exp</span>
+                </div>
+                <!-- <div class="faculty-card">
+                    <div class="faculty-avatar-wrapper"><i class="fa-solid fa-user-ninja"></i></div>
+                    <h4>Er. Neha Verma</h4>
+                    <p class="designation">Senior Data Analyst</p>
+                    <span class="experience">6+ Yrs Exp</span>
+                </div>
+                <div class="faculty-card">
+                    <div class="faculty-avatar-wrapper"><i class="fa-solid fa-user-doctor"></i></div>
+                    <h4>Prof. Rajesh Kumar</h4>
+                    <p class="designation">Full Stack Developer</p>
+                    <span class="experience">8+ Yrs Exp</span>
+                </div> -->
+            @endforeach
+
         </div>
     </section>
 

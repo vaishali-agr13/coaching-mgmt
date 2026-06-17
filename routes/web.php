@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+ use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\CourseController;
@@ -28,35 +29,26 @@ use App\Http\Controllers\ReportController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', [HomeController::class, 'index']);
 
-// Root route
-Route::get('/', function () {
+Route::get('/courses', function () {
 
-    // if (auth()->check()) {
 
-    //     $role = auth()->user()->role;
-
-    //     switch ($role) {
-
-    //         case 'admin':
-    //             return redirect()->route('admin.dashboard');
-
-    //         case 'faculty':
-    //             return redirect()->route('admin.faculty.dashboard');
-
-    //         case 'student':
-    //             return redirect()->route('admin.students.dashboard');
-
-    //         default:
-    //             Auth::logout();
-
-    //             return redirect()->route('login')
-    //                 ->with('error', 'Invalid user role.');
-    //     }
-    // }
-
-    return view('front-end.welcome');
+    return view('front-end.course-list');
 });
+
+Route::get('/faculty', function () {
+
+
+    return view('front-end.faculty-list');
+});
+
+Route::get('/result', function () {
+
+
+    return view('front-end.result');
+});
+
 
 // ============================================
 // AUTHENTICATION ROUTES (Guest only)
