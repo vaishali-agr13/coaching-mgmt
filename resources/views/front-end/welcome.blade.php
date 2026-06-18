@@ -228,6 +228,117 @@
         </div>
     </section>
 
+    <section class="edu-features-section">
+        <div class="container">
+            
+            <div class="edu-features-header">
+                <span class="edu-badge"><i class="fas fa-bolt"></i> Edumiracle</span>
+                <h2>What Makes <span class="gradient-text">Edumiracle Diffrent ?</span></h2>
+            </div>
+
+            <div class="edu-features-grid">
+                
+                <div class="edu-feature-card">
+                    <div class="edu-icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3512/3512410.png" alt="Testing icon">
+                    </div>
+                    <div class="edu-feature-content">
+                        <span class="edu-feature-number">Features 01</span>
+                        <h3>Regular Testing & Feedback</h3>
+                    </div>
+                </div>
+
+                <div class="edu-feature-card">
+                    <div class="edu-icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3048/3048122.png" alt="Attention icon">
+                    </div>
+                    <div class="edu-feature-content">
+                        <span class="edu-feature-number">Features 02</span>
+                        <h3>Individual Attention</h3>
+                    </div>
+                </div>
+
+                <div class="edu-feature-card">
+                    <div class="edu-icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2436/2436636.png" alt="Neet icon">
+                    </div>
+                    <div class="edu-feature-content">
+                        <span class="edu-feature-number">Features 03</span>
+                        <h3>We Know Neet Inside-Out</h3>
+                    </div>
+                </div>
+
+                <div class="edu-feature-card">
+                    <div class="edu-icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Material icon">
+                    </div>
+                    <div class="edu-feature-content">
+                        <span class="edu-feature-number">Features 04</span>
+                        <h3>Smart Study Material</h3>
+                    </div>
+                </div>
+
+                <div class="edu-feature-card">
+                    <div class="edu-icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/9357/9357284.png" alt="Focus icon">
+                    </div>
+                    <div class="edu-feature-content">
+                        <span class="edu-feature-number">Features 05</span>
+                        <h3>We Focus On You</h3>
+                    </div>
+                </div>
+
+                <div class="edu-feature-card">
+                    <div class="edu-icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2413/2413115.png" alt="Fees icon">
+                    </div>
+                    <div class="edu-feature-content">
+                        <span class="edu-feature-number">Features 06</span>
+                        <h3>Affordable Fees</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            
+            <div class="section-badge">
+            <span class="lightning-icon">⚡</span> Our Feedbacks
+            </div>
+            
+            <h2 class="section-title">What Our Student's Says</h2>
+            
+            <div class="testimonials-grid">
+            
+            <div class="testimonial-card">
+                <div class="quote-icon">,,</div>
+                <p class="testimonial-text">
+                "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application. Physics problem-solving skills improve drastically, Chemistry becomes systematic, and Biology revision is very effective. Regular performance tracking and feedback sessions help students identify weaknesses early. Overall, a highly supportive and result-driven institute."
+                </p>
+                <div class="student-info">
+                <h4 class="student-name">Vaibhav Patidar</h4>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="quote-icon">,,</div>
+                <p class="testimonial-text">
+                "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—EDUMIRACLE isn't just a class, it's a family."
+                </p>
+                <div class="student-info">
+                <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
+                <span class="student-marks">670 Marks</span>
+                </div>
+            </div>
+            
+            </div>
+            
+        </div>
+    </section>
+
     <section id="admission-form" class="container admission-lead-section">
         <div class="form-container">
             <div class="form-info-side">

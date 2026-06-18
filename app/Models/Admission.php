@@ -17,6 +17,8 @@ class Admission extends Model
         'email',
         'phone',
         'date_of_birth',
+        'gender',
+        'notes',
         'education_background',
         'applied_course_id',
         'application_date',

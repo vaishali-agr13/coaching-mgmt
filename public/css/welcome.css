@@ -839,3 +839,233 @@
             nav { display: none; }
             .form-info-side, .form-input-side { padding: 30px; }
         }
+
+        /* --- WHAT MAKES EDUMIRACLE DIFFERENT SECTION CSS --- */
+.edu-features-section {
+    padding: 80px 0;
+    /* Light gradient using white mixing with brand elements for a soft pastel layout */
+    background: linear-gradient(135deg, #ffffff 0%, rgba(223, 82, 138, 0.05) 50%, rgba(136, 52, 227, 0.05) 100%);
+    position: relative;
+}
+
+.edu-features-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.edu-features-header .edu-badge {
+    background-color: var(--white);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand-pink);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(223, 82, 138, 0.15);
+}
+
+.edu-features-header h2 {
+    font-size: 32px;
+    color: var(--text-dark);
+    font-weight: 800;
+}
+
+/* 3-Column layout mapped identically to your cards-grid spacing rules */
+.edu-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.edu-feature-card {
+    background-color: var(--white);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f3f4f6;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edu-feature-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(136, 52, 227, 0.2);
+    box-shadow: 0 15px 30px rgba(136, 52, 227, 0.06);
+}
+
+.edu-icon-box {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(136, 52, 227, 0.06); /* Balanced brand purple highlight context */
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.edu-icon-box img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.edu-feature-content .edu-feature-number {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand-pink); /* Matches highlight theme mapping standard */
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.edu-feature-content h3 {
+    font-size: 17px;
+    color: var(--text-dark);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* Syncs natively with your global responsive break context rules */
+@media (max-width: 992px) {
+    .edu-features-grid {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        margin: 0 auto;
+        gap: 20px;
+    }
+    .edu-feature-card {
+        text-align: left; /* Ensuring inner row flex remains standard */
+    }
+}
+
+/* Google Fonts import (agar aapke paas pehle se nahi hai toh) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.testimonials-section {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, #ffffff 0%, #fff0f0 100%); /* Light background gradient */
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Badge Styling */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+}
+
+.lightning-icon {
+  color: #e53935;
+  margin-right: 6px;
+  font-weight: bold;
+}
+
+/* Title Styling */
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 40px;
+}
+
+/* Grid Layout */
+.testimonials-grid {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap; /* Responsive banane ke liye */
+}
+
+/* Card Styling */
+.testimonial-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  flex: 1;
+  min-width: 300px;
+  max-width: 550px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Quote Icon Styling */
+.quote-icon {
+  background-color: #e53935; /* Red Circle */
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-family: sans-serif;
+  line-height: 0;
+  padding-top: 15px; /* Quote marks ko center align karne ke liye */
+  transform: rotate(180deg); /* Balances the comma shapes to look like quotes */
+  margin-bottom: 25px;
+}
+
+/* Text Styling */
+.testimonial-text {
+  font-size: 15px;
+  color: #4a4a4a;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Student Info */
+.student-info {
+  margin-top: auto;
+}
+
+.student-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.student-marks {
+  font-size: 14px;
+  color: #e53935; /* Red color for marks */
+  font-weight: 500;
+  display: block;
+  margin-top: 4px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 28px;
+  }
+  .testimonial-card {
+    padding: 25px;
+  }
+}

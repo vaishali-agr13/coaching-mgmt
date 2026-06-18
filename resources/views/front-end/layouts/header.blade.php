@@ -34,7 +34,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 
 <a href="/">Home Page</a>
 
-<a href="#">About Us</a>
+<a href="/about-us">About Us</a>
 
 <a href="/courses">Courses</a>
 
@@ -43,7 +43,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 <a href="/result">Results</a>
 <a href="#">Gallery</a>
 <a href="#">Blog</a>
-<a href="#">Online Admission</a>
+<a href="/admission">Online Admission</a>
 <a href="#">Contact Us</a>
 
 

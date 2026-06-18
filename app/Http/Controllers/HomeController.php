@@ -7,6 +7,7 @@ use App\Models\Homework;
 use App\Models\CourseEnrollment;
 use App\Models\Faculty;
 use App\Models\ExamResult;
+use App\Models\Admission;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
@@ -94,7 +95,85 @@ class HomeController extends Controller
             $faculties = Faculty::with('user')->latest()->get();            
             return view('front-end.faculty-list',compact('faculties'));
         }
+
+        public function createAdmissionForm(){
+                       $courses = Course::all();
+
+             return view('front-end.admission',compact('courses'));
+     
+        }
+
+        public function store(Request $request)
+         {
+
+         try{
+                    $request->validate([
+
+                        'first_name' => 'required',
+
+                        'last_name' => 'required',
+
+                        'email' => 'required|email',
+
+                        'phone' => 'required',
+
+                        'date_of_birth' => 'required',
+
+                        'education_background' => 'required',
+
+                        'application_date' => 'required',
+                        'reviewed_by '=>'required',
+                        'review_date'=>'required',
+
+                    ]);
+
+
+                    Admission::create([
+
+                        'first_name' => $request->first_name,
+
+                        'last_name' => $request->last_name,
+
+                        'email' => $request->email,
+
+                        'phone' => $request->phone,
+
+                        'date_of_birth' => $request->date_of_birth,
+
+                        'education_background' => $request->education_background,
+
+                        'applied_course_id' => $request->applied_course_id,
+
+                        'application_date' => $request->application_date,
+
+                        'application_status' => 'pending',
+                        'notes' => $request->notes,
+                        'gender' => $request->gender,
+
+                        'reviewed_by' => $request->reviewed_by,
+
+                        'review_date' => $request->review_date,
+
+                    ]);
+
+
+                    return redirect('/admission')
+                        ->with(
+                            'success',
+                            'Application submitted successfully.'
+                        );
+            } 
+         catch (\Exception $e) {
+echo $e->getMessage();die;
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('error', $e->getMessage());
     }
+        }
+    }
+
+
 
     
 

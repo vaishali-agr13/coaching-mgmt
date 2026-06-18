@@ -42,6 +42,15 @@ Route::get('/result', function () {
     return view('front-end.result');
 });
 
+Route::get('/admission', [HomeController::class, 'createAdmissionForm']);
+Route::post('/admission',[HomeController::class,'store'])->name('admission.store');
+
+Route::get('/about-us', function () {
+
+
+    return view('front-end.about-us');
+});
+
 
 // ============================================
 // AUTHENTICATION ROUTES (Guest only)
