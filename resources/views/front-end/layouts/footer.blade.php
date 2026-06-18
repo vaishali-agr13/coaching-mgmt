@@ -23,14 +23,14 @@ Let's Join us
 <div class="signature">
 
 <div class="sig-avatar">
-ND
+VIP
 </div>
 
 <div class="sig-text">
 
-<h5>Navique Designs</h5>
+<h5>  Website Designed by  </h5>
 
-<p>by Naveen Ananthan</p>
+<p>VIP Digital Hub</p>
 
 </div>
 
@@ -77,9 +77,9 @@ style="color: var(--white); opacity:0.9;"></i>
 
 <div class="badge-text">
 
-<p>100+</p>
+<p>20+</p>
 
-<p>Mnc Mentors</p>
+<p>Teachers</p>
 
 </div>
 

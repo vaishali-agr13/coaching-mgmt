@@ -4,36 +4,143 @@
 
  <section class="container hero">
         <div class="grid-2">
-            <div class="hero-left">
-                <h1>"Unlock your <br><span class="gradient-text">Potential with us</span> <br>– Explore, Learn, <br> and Grow!"</h1>
-                <p>"Welcome to NavSkills, where your journey to knowledge begins! Range of courses, curated by experts, to help you achieve your personal."</p>
+            <!-- <div class="hero-left">
+                <h1>Unlock your <br><span class="gradient-text">Potential with us</span> <br>– Explore, Learn, <br> and Grow!</h1>
+                <p>Welcome to Best Home Tutor Coaching, where your journey to knowledge begins! Range of courses, curated by experts, to help you achieve your personal.</p>
                 <div class="cta-group">
-                    <a href="#admission-form" class="btn-primary">Get a Proposal</a>
-                    <a href="#" class="btn-secondary">Try Now!</a>
+                    <a href="#admission-form" class="btn-primary">Buy Course</a>
+                    <a href="#" class="btn-secondary">Contact Us</a>
+                </div>
+            </div> -->
+
+            <div class="hero-left">
+                <div class="top-tagline">
+                    <i class="fa-solid fa-graduation-cap"></i> BEST HOME TUTOR COACHING
+                </div>
+                
+                <h1>Unlock Your <br><span class="gradient-text">Potential with Us</span></h1>
+                
+                <div class="sub-features">
+                    <span class="line">—</span> 
+                    <span class="feat-text">Explore</span> <span class="dot">•</span> 
+                    <span class="feat-text">Learn</span> <span class="dot">•</span> 
+                    <span class="feat-text">Grow</span> 
+                    <span class="line">—</span>
+                </div>
+
+                <p>Welcome to Best Home Tutor Coaching, where your journey to knowledge begins! Our range of courses, curated by experts, to help you achieve your personal and academic goals.</p>
+                
+                <div class="features-icon-grid">
+                    <div class="feat-icon-box">
+                        <div class="icon-circle icon-pink"><i class="fa-solid fa-book-open"></i></div>
+                        <p>Expert<br>Guidance</p>
+                    </div>
+                    <div class="feat-icon-box">
+                        <div class="icon-circle icon-purple"><i class="fa-solid fa-chalkboard-user"></i></div>
+                        <p>Quality<br>Education</p>
+                    </div>
+                    <div class="feat-icon-box">
+                        <div class="icon-circle icon-dark-pink"><i class="fa-solid fa-bullseye"></i></div>
+                        <p>Personalized<br>Learning</p>
+                    </div>
+                    <div class="feat-icon-box">
+                        <div class="icon-circle icon-blue"><i class="fa-solid fa-chart-line"></i></div>
+                        <p>Proven<br>Results</p>
+                    </div>
+                </div>
+
+                <div class="cta-group">
+                    <a href="#admission-form" class="btn-primary">Buy Course</a>
+                    <a href="#" class="btn-secondary">Contact Us</a>
+                </div>
+
+                <div class="bottom-tagline">
+                    <span class="star-icon"><i class="fa-solid fa-star"></i></span> 
+                    <strong>Learn</strong> Better. <span class="purple-text">Achieve</span> More. <span class="pink-text">Grow</span> Forever.
                 </div>
             </div>
+
             <div class="graphic-wrapper">
                 <div class="dashed-circle"></div>
-                <div class="avatar-circle"><i class="fa-solid fa-user-graduate"></i></div>
+                <div class="avatar-circle">
+                   <img src="{{ asset('/images/profile.png') }}"/> 
+                   <i class="fa-solid fa-user-graduate"></i></div>
                 <div class="badge badge-1">
                     <div class="badge-icon-purple"><i class="fa-solid fa-users"></i></div>
                     <div class="badge-text"><p>1000+</p><p>Students</p></div>
                 </div>
                 <div class="badge badge-2">
                     <div class="badge-icon-pink"><i class="fa-solid fa-briefcase"></i></div>
-                    <div class="badge-text"><p>100+</p><p>Mnc Mentors</p></div>
+                    <div class="badge-text"><p>20+</p><p>Teachers</p></div>
                 </div>
             </div>
         </div>
     </section>
 
+    <section class="about-section">
+        <div class="about-container">
+            
+            <div class="about-left-col">
+            <div class="image-grid-wrapper">
+                
+                <div class="exp-badge-box">
+                <div class="exp-number">25</div>
+                <div class="exp-text">Years Of<br>Experience</div>
+                </div>
+                
+                <div class="main-building-img">
+                <img src="{{ asset('/images/coaching-banner.png') }}" alt="BestHomeTutorCoaching Building">
+                </div>
+                
+                <div class="group-photo-img">
+                <img src="{{ asset('/images/student_group.jpg') }}" alt="Students Group">
+                </div>
+                
+            </div>
+            </div>
+            
+            <div class="about-right-col">
+            
+            <div class="welcome-badge">
+                <span class="lightning-flash">⚡</span> Welcome to
+            </div>
+            
+            <h2 class="main-heading">Best Home Tutor Coaching<span class="title-dot">.</span></h2>
+            
+            <p class="content-para text-highlight">
+                Established in 1992, <strong>Best Home Tutor Coaching</strong>, Institute has emerged as a beacon of excellence in the field of medical entrance preparation. With a clear vision to nurture talent and ignite academic brilliance, we have been consistently delivering superb results in <strong>NEET (National Eligibility cum Entrance Test)</strong> year after year.
+            </p>
+            
+            <p class="content-para">
+                At <strong>Best Home Tutor Coaching</strong>, we believe that success is no miracle—it's the result of hard work, dedication, and the right guidance. Our expert faculty members bring years of experience, deep subject knowledge, and a passion for teaching that transforms students into confident achievers.
+            </p>
+            
+            <div class="features-row">
+                <div class="feature-item">
+                <span class="tick-icon">✓</span>
+                <span class="feature-text">SMART STUDY PLANS</span>
+                </div>
+                <div class="feature-item">
+                <span class="tick-icon">✓</span>
+                <span class="feature-text">EXPERIENCED FACULTY</span>
+                </div>
+            </div>
+            
+            <div class="btn-container">
+                <a href="/about-us" class="read-more-btn">Read More</a>
+            </div>
+            
+            </div>
+            
+        </div>
+    </section>
+
     <section class="partners">
         <div class="container partner-flex">
-            <span><i class="fa-brands fa-apple"></i> Apple</span>
-            <span><i class="fa-brands fa-microsoft"></i> Microsoft</span>
-            <span><i class="fa-brands fa-google"></i> Google</span>
-            <span><i class="fa-solid fa-building"></i> TCS</span>
-            <span><i class="fa-solid fa-cloud"></i> Zoho</span>
+            <span><i class="fa-solid fa-atom"></i> Physics</span>
+            <span><i class="fa-solid fa-flask"></i> Chemistry</span>
+            <span><i class="fa-solid fa-calculator"></i> Maths</span>
+            <span><i class="fa-solid fa-dna"></i> Biology</span>
         </div>
     </section>
 
@@ -118,35 +225,81 @@
         </div>
     </div>
 
-    <section class="container features">
-        <div class="grid-2">
-            <div class="features-grid-left">
-                <div class="feature-box box-pink"><i class="fa-solid fa-laptop-code"></i></div>
-                <div class="feature-box box-purple"><i class="fa-solid fa-user-tie"></i></div>
-                <div class="feature-box box-purple"><i class="fa-solid fa-book-open"></i></div>
-                <div class="feature-box box-pink"><i class="fa-solid fa-award"></i></div>
-            </div>
-            <div class="features-right">
+        <section class="features-section">
+            <div class="features-header">
+                <span class="badge-title"><i class="fa-solid fa-graduation-cap"></i> WHY CHOOSE US</span>
                 <h2>Gain for our <span class="gradient-text">Online Learning</span></h2>
-                <div class="features-list">
-                    <div class="feature-item">
-                        <div class="f-icon box-purple"><i class="fa-solid fa-graduation-cap"></i></div>
-                        <div class="f-item-text">
-                            <h4>Online Degree</h4>
-                            <p>This maintains the essence of your original code layout structures.</p>
+                <div class="header-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                
+                <div class="images-column">
+                    <div class="image-card">
+                        <img src="{{ asset('/images/faculty.png') }}" alt="Expert Faculty">
+                        <div class="card-overlay overlay-purple">
+                            <div class="overlay-icon"><i class="fa-solid fa-user"></i></div>
+                            <div class="overlay-text">
+                                <h4>Expert Faculty</h4>
+                                <p>Experienced teachers dedicated to personalized guidance and student success.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <div class="f-icon box-pink"><i class="fa-solid fa-certificate"></i></div>
-                        <div class="f-item-text">
-                            <h4>Certification</h4>
-                            <p>Valid Certificates and Rewards on course dynamic finishes.</p>
+
+                    <div class="image-card">
+                        <img src="{{ asset('/images/certificate.png') }}" alt="Certification">
+                        <div class="card-overlay overlay-pink">
+                            <div class="overlay-icon"><i class="fa-solid fa-award"></i></div>
+                            <div class="overlay-text">
+                                <h4>Certification</h4>
+                                <p>Earn valid certificates and rewards on successful course completion.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="content-column">
+                    <div class="right-list-item">
+                        <div class="list-icon icon-purple"><i class="fa-solid fa-user-graduate"></i></div>
+                        <div class="list-text">
+                            <h4>Expert Faculty</h4>
+                            <p>Learn from experienced teachers who provide personalized guidance and help students build strong academic foundations.</p>
+                        </div>
+                    </div>
+
+                    <div class="right-list-item">
+                        <div class="list-icon icon-pink"><i class="fa-solid fa-ribbon"></i></div>
+                        <div class="list-text">
+                            <h4>Certification</h4>
+                            <p>Valid certificates and rewards are provided to recognize your achievements and encourage continuous learning.</p>
+                        </div>
+                    </div>
+
+                    <div class="sub-features-grid">
+                        <div class="sub-item">
+                            <div class="sub-icon"><i class="fa-solid fa-book-open"></i></div>
+                            <h5>Quality Content</h5>
+                            <p>Well-structured and easy to understand study material.</p>
+                        </div>
+                        <div class="sub-item">
+                            <div class="sub-icon"><i class="fa-solid fa-desktop"></i></div>
+                            <h5>Flexible Learning</h5>
+                            <p>Learn anytime, anywhere at your own pace.</p>
+                        </div>
+                        <div class="sub-item">
+                            <div class="sub-icon"><i class="fa-solid fa-bullseye"></i></div>
+                            <h5>Better Results</h5>
+                            <p>Focused learning that helps you achieve your goals.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </section>
+        </section>
 
     <section class="popular-courses">
         <div class="container">
@@ -232,8 +385,8 @@
         <div class="container">
             
             <div class="edu-features-header">
-                <span class="edu-badge"><i class="fas fa-bolt"></i> Edumiracle</span>
-                <h2>What Makes <span class="gradient-text">Edumiracle Diffrent ?</span></h2>
+                <span class="edu-badge"><i class="fas fa-bolt"></i> BestHomeTutorCoaching</span>
+                <h2>What Makes <span class="gradient-text">Best Home Tutor Coaching Diffrent ?</span></h2>
             </div>
 
             <div class="edu-features-grid">
@@ -313,26 +466,67 @@
             
             <div class="testimonials-grid">
             
-            <div class="testimonial-card">
-                <div class="quote-icon">,,</div>
-                <p class="testimonial-text">
-                "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application. Physics problem-solving skills improve drastically, Chemistry becomes systematic, and Biology revision is very effective. Regular performance tracking and feedback sessions help students identify weaknesses early. Overall, a highly supportive and result-driven institute."
-                </p>
-                <div class="student-info">
-                <h4 class="student-name">Vaibhav Patidar</h4>
+                <div class="testimonial-card">
+                    <div class="quote-icon">,,</div>
+                    <p class="testimonial-text">
+                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application. Physics problem-solving skills improve drastically, Chemistry becomes systematic, and Biology revision is very effective. Regular performance tracking and feedback sessions help students identify weaknesses early. Overall, a highly supportive and result-driven institute."
+                    </p>
+                    <div class="student-info">
+                    <h4 class="student-name">Vaibhav Patidar</h4>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="quote-icon">,,</div>
-                <p class="testimonial-text">
-                "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—EDUMIRACLE isn't just a class, it's a family."
-                </p>
-                <div class="student-info">
-                <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
-                <span class="student-marks">670 Marks</span>
+                
+                <div class="testimonial-card">
+                    <div class="quote-icon">,,</div>
+                    <p class="testimonial-text">
+                    "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—Best Home Tutor Coaching isn't just a class, it's a family."
+                    </p>
+                    <div class="student-info">
+                    <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
+                    <span class="student-marks">670 Marks</span>
+                    </div>
                 </div>
-            </div>
+
+                <div class="testimonial-card">
+                    <div class="quote-icon">,,</div>
+                    <p class="testimonial-text">
+                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application. Physics problem-solving skills improve drastically, Chemistry becomes systematic, and Biology revision is very effective. Regular performance tracking and feedback sessions help students identify weaknesses early. Overall, a highly supportive and result-driven institute."
+                    </p>
+                    <div class="student-info">
+                    <h4 class="student-name">Vaibhav Patidar</h4>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="quote-icon">,,</div>
+                    <p class="testimonial-text">
+                    "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—Best Home Tutor Coaching isn't just a class, it's a family."
+                    </p>
+                    <div class="student-info">
+                    <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
+                    <span class="student-marks">670 Marks</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">,,</div>
+                    <p class="testimonial-text">
+                    "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—Best Home Tutor Coaching isn't just a class, it's a family."
+                    </p>
+                    <div class="student-info">
+                    <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
+                    <span class="student-marks">670 Marks</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">,,</div>
+                    <p class="testimonial-text">
+                    "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—Best Home Tutor Coaching isn't just a class, it's a family."
+                    </p>
+                    <div class="student-info">
+                    <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
+                    <span class="student-marks">670 Marks</span>
+                    </div>
+                </div>
             
             </div>
             

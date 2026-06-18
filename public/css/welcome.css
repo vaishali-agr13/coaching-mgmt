@@ -158,31 +158,66 @@
         /* Reference Image Graphic Layout */
         .graphic-wrapper {
             position: relative;
+            width: 450px;       /* Aapki requirements ke hisab se size */
+            height: 450px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            margin: 0 auto;
         }
 
-        .dashed-circle {
-            width: 380px;
-            height: 380px;
-            border: 4px dashed rgba(223, 82, 138, 0.6);
-            border-radius: 50%;
+       .dashed-circle {
             position: absolute;
-            animation: rotateCircle 25s linear infinite;
+            width: 420px;       
+            height: 420px;
+            
+            /* ─── YAHAN PURPLE (#a855f7) KO BADAL KAR PINK (#db2777) KAR DIYA HAI ─── */
+            border: 2px dashed #db2777; 
+            
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg); 
+            animation: rotateDashed 20s linear infinite; 
+            z-index: 1;
+        }
+
+        @keyframes rotateDashed {
+            from {
+                /* translate ko sath me rakhna zaroori hai nahi toh circle apni jagah se bhag jayega */
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         .avatar-circle {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(to top right, var(--brand-light-purple), var(--white));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 4px solid var(--white);
-            box-shadow: 0 20px 25px rgba(0,0,0,0.1);
-            z-index: 10;
+           position: absolute;
+    width: 340px;       /* Is size ko aap chota-bada kar sakte hain, ye auto center rahega */
+    height: 340px;      
+    border-radius: 50%; 
+    overflow: hidden;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 12px solid #a855f7; /* Purple solid border */
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Yeh line avatar ko bilkul center me alignment degi */
+    z-index: 2;
+        }
+
+        .avatar-circle img {
+            width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;/* Image ka center part dikhega */
+        }
+
+        .avatar-circle img + .fa-user-graduate {
+            display: none;
         }
 
         .avatar-circle i {
@@ -201,11 +236,13 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            z-index: 20;
+            z-index: 3;
         }
 
-        .badge-1 { top: 20px; left: 20px; }
-        .badge-2 { bottom: 40px; right: 20px; }
+        .badge-1 { top: 20%;
+    left: 0%; }
+        .badge-2 { bottom: 20%;
+    right: 0%; }
 
         .badge-icon-purple { background: rgba(136, 52, 227, 0.1); color: var(--brand-purple); padding: 8px; border-radius: 8px; }
         .badge-icon-pink { background: rgba(223, 82, 138, 0.1); color: var(--brand-pink); padding: 8px; border-radius: 8px; }
@@ -218,6 +255,34 @@
             background: linear-gradient(90deg, #E2538B 0%, #B643B5 50%, #8B34E1 100%);
             padding: 24px 0;
         }
+
+        .icon-pink { background-color: #fff0f3; color: #d63384; }
+.icon-purple { background-color: #f3f0ff; color: #6f42c1; }
+.icon-dark-pink { background-color: #fff0f5; color: #e11d48; }
+.icon-blue { background-color: #eef2ff; color: #4f46e5; }
+
+
+.bottom-tagline {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.bottom-tagline .star-icon {
+    background-color: #6f42c1;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+.bottom-tagline .purple-text { color: #6f42c1; font-weight: bold; }
+.bottom-tagline .pink-text { color: #d63384; font-weight: bold; }
 
         .partner-flex {
             display: flex;
@@ -344,14 +409,89 @@
         }
 
         .feature-box {
-            aspect-ratio: 1/1;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed rgba(0,0,0,0.1);
+            width: 250px;         /* Aapke design ke hisab se width (adjust if needed) */
+            height: 250px;        /* Height fix, takki pure box jaisi dikhe */
+            border-radius: 15px;   /* Rounded corners (as in attached image) */
+            overflow: hidden;      /* Sabse important: Taki extra image box se bahar na dikhe */
+            display: flex;         /* Image ko center karne ke liye */
+            align-items: center;   /* Vertical centering */
+            justify-content: center; /* Horizontal centering */
+            box-sizing: border-box;
         }
 
+        .top-tagline {
+            background: #fff5f7;
+            color: #d63384;
+            padding: 6px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid #ffe1e6;
+            letter-spacing: 0.5px;
+        }
+        .top-tagline i {
+            margin-right: 5px;
+        }
+
+        .sub-features {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: -5px;
+            margin-bottom: 15px;
+        }
+        .sub-features .line {
+            color: #666;
+            font-weight: 300;
+        }
+        .sub-features .feat-text {
+            font-size: 18px; /* Pehle se small size */
+            font-weight: 600;
+            color: #1a253c;
+        }
+        .sub-features .dot {
+            color: #d63384; /* Pink dot */
+            font-size: 18px;
+        }
+
+        .features-icon-grid {
+            display: flex;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .feat-icon-box {
+    text-align: center;
+    width: 90px;
+}
+
+.icon-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.feat-icon-box p {
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+}
+        .feature-box img {
+            width: 100%;          /* Box ki puri width cover karega */
+            height: 100%;         /* Box ki puri height cover karega */
+            object-fit: cover;    /* Taki image bina kharab hue (stretch kiye) area cover kare */
+            object-position: center; /* Image ka center part focus me rahega */
+        }
         .box-pink { background-color: rgba(223, 82, 138, 0.08); border-color: rgba(223, 82, 138, 0.2); color: var(--brand-pink); }
         .box-purple { background-color: rgba(136, 52, 227, 0.08); border-color: rgba(136, 52, 227, 0.2); color: var(--brand-purple); }
         .feature-box i { font-size: 48px; }
@@ -1068,4 +1208,518 @@
   .testimonial-card {
     padding: 25px;
   }
+}
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.about-section {
+  font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
+  padding: 80px 20px;
+  color: #4a4a4a;
+  overflow: hidden;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* 2-Column Desktop Layout (Using table-cell strategy for cross-rendering stability) */
+@media (min-width: 992px) {
+  .about-container {
+    display: table;
+    width: 100%;
+  }
+  .about-left-col {
+    display: table-cell;
+    width: 45%;
+    vertical-align: middle;
+    padding-right: 40px;
+  }
+  .about-right-col {
+    display: table-cell;
+    width: 55%;
+    vertical-align: middle;
+    padding-left: 20px;
+  }
+}
+
+/* LEFT COLUMN: IMAGE GRID DESIGN */
+.image-grid-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  height: 520px;
+}
+
+/* Experience Box (Top Left) */
+.exp-badge-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  background: linear-gradient(135deg, #b026ff 0%, #e82583 100%); /* NavSkills Pink-Purple theme */
+  color: #ffffff;
+  padding: 25px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(232, 37, 131, 0.25);
+  z-index: 3;
+}
+
+.exp-number {
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.exp-text {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Main Long Building Photo */
+.main-building-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.main-building-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlapping Bottom Left Group Photo */
+.group-photo-img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  height: 310px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 6px solid #ffffff;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+.group-photo-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* RIGHT COLUMN: TEXT CONTENT DESIGN */
+.welcome-badge {
+  display: inline-block;
+  background-color: #fdf0f6; /* Very soft light pink background */
+  border: 1px solid #f9d6e7;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #e82583; /* NavSkills theme pink */
+  margin-bottom: 15px;
+}
+
+.lightning-flash {
+  color: #b026ff;
+  margin-right: 4px;
+}
+
+.main-heading {
+  font-size: 38px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 25px 0;
+  letter-spacing: -0.5px;
+}
+
+.title-dot {
+  color: #e82583; /* Pink dot at the end */
+}
+
+.content-para {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+.text-highlight {
+  color: #333333;
+}
+
+/* Features Ticks section */
+.features-row {
+  margin: 25px 0;
+}
+
+.feature-item {
+  display: inline-block;
+  margin-right: 30px;
+  margin-bottom: 15px;
+}
+
+.tick-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 22px;
+  border-radius: 50%;
+  border: 1px solid #e82583;
+  color: #e82583; /* Pink ticks */
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  margin-right: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(232, 37, 131, 0.1);
+}
+
+.feature-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 0.5px;
+}
+
+/* Pinkish Gradient Button Layout */
+.btn-container {
+  margin-top: 30px;
+}
+
+.read-more-btn {
+  display: inline-block;
+  padding: 14px 40px;
+  background: linear-gradient(90deg, #b026ff 0%, #e82583 100%); /* Perfect gradient matching Image 2 */
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 30px;
+  box-shadow: 0 5px 20px rgba(232, 37, 131, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.read-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(232, 37, 131, 0.45);
+}
+
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 991px) {
+  .about-left-col, .about-right-col {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+  
+  .image-grid-wrapper {
+    margin-bottom: 50px;
+  }
+  
+  .main-heading {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-grid-wrapper {
+    height: 420px;
+  }
+  .exp-badge-box {
+    width: 130px;
+    padding: 15px;
+  }
+  .exp-number {
+    font-size: 32px;
+  }
+  .main-building-img {
+    width: 200px;
+    height: 380px;
+  }
+  .group-photo-img {
+    width: 180px;
+    height: 240px;
+  }
+  .feature-item {
+    display: block;
+    margin-right: 0;
+  }
+}
+
+/* --- Features Section Main Styles --- */
+.features-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    font-family: 'Poppins', sans-serif; /* Aap apna font family lagayein */
+}
+
+/* Header Area Styles */
+.features-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.features-header .badge-title {
+    background-color: #ffeef4;
+    color: #d83d73;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.features-header h2 {
+    font-size: 38px;
+    font-weight: 800;
+    color: #11152c;
+    margin: 15px 0 20px;
+}
+
+.features-header .gradient-text {
+    background: linear-gradient(to right, #d83d73, #6a24cd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Header 3 Dots Styling */
+.header-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+.header-dots span {
+    width: 8px;   /* Size thodi badi ki hai taaki clear dikhe */
+    height: 8px;  /* Height same rakhein */
+    background-color: #d83d73;
+    border-radius: 50%;
+    display: inline-block;
+}
+.header-dots span:nth-child(2) {
+   background-color: #9d329b;
+}
+.header-dots span:nth-child(3) {
+    background-color: #6a24cd;
+    width: 8px;   
+    border-radius: 50%;
+}
+
+/* Main Grid Layout */
+.features-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* --- Left Column: Images Styling --- */
+.images-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.image-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.image-card img {
+    width: 100%;
+    height: 280px; /* Dono images ki height yahan se fix ho jayegi */
+    object-fit: cover; /* Image stretch nahi hogi, perfectly crop hogi */
+    display: block;
+}
+
+/* Image Bottom Text Overlays */
+.card-overlay {
+    padding: 20px 15px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.overlay-purple {
+    background: linear-gradient(135deg, #6a24cd, #8b46eb);
+}
+
+.overlay-pink {
+    background: linear-gradient(135deg, #d83d73, #e9598b);
+}
+
+.card-overlay .overlay-icon {
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.card-overlay h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.card-overlay p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+/* --- Right Column: Content Styling --- */
+.content-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Top Right Big List Cards */
+.right-list-item {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+    border: 1px solid #f3f4f6;
+}
+
+.list-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.icon-purple {
+    background-color: #f3ebff;
+    color: #6a24cd;
+    border-left: 3px solid #6a24cd;
+}
+
+.icon-pink {
+    background-color: #ffeef4;
+    color: #d83d73;
+    border-left: 3px solid #d83d73;
+}
+
+.list-text h4 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    color: #11152c;
+    font-weight: 700;
+}
+
+.list-text p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Bottom 3 Sub-Features Grid */
+.sub-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 30px;
+}
+
+.sub-item {
+    text-align: center;
+    padding: 10px;
+}
+
+.sub-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.sub-item:nth-child(1) .sub-icon { color: #6a24cd; background: #f3ebff; }
+.sub-item:nth-child(2) .sub-icon { color: #d83d73; background: #ffeef4; }
+.sub-item:nth-child(3) .sub-icon { color: #3b82f6; background: #eff6ff; }
+
+.sub-item h5 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #11152c;
+    font-weight: 700;
+}
+
+.sub-item p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 991px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .images-column {
+        grid-template-columns: 1fr;
+    }
+    .sub-features-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
 }
