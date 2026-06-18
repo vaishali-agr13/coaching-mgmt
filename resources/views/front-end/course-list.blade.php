@@ -90,7 +90,7 @@ Laravel
 <!-- Course Grid -->
 
 <section class="course-container">
-
+@foreach($courses as $course)
 
 <div class="card">
 
@@ -98,12 +98,11 @@ Laravel
 
 <div class="card-body">
 
-<h3>Laravel Development</h3>
+<h3>{{$course->course_name}}</h3>
 
 <p>
 
-Complete Laravel Beginner to Advanced Course
-
+{{$course->description}}
 </p>
 
 <div class="rating">
@@ -114,7 +113,7 @@ Complete Laravel Beginner to Advanced Course
 
 <div class="bottom">
 
-<span>₹999</span>
+<span>₹{{$course->fee}}</span>
 
 <button>
 
@@ -127,7 +126,7 @@ Enroll Now
 </div>
 
 </div>
-
+@endforeach
 
 <div class="card">
 
@@ -339,81 +338,7 @@ Next
 @endsection
 
 <style>
-    *{
 
-margin:0;
-
-padding:0;
-
-box-sizing:border-box;
-
-font-family:sans-serif;
-
-}
-
-
-body{
-
-background:#fff;
-
-}
-
-
-header{
-
-padding:20px 80px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-
-.logo{
-
-font-size:28px;
-
-font-weight:bold;
-
-}
-
-
-nav a{
-
-text-decoration:none;
-
-margin:0 15px;
-
-color:#333;
-
-}
-
-
-.active{
-
-color:#c95cf5;
-
-}
-
-
-.signin-btn{
-
-padding:10px 25px;
-
-border:none;
-
-border-radius:25px;
-
-background:linear-gradient(90deg,#bb65ff,#ff78c7);
-
-color:#fff;
-
-cursor:pointer;
-
-}
 
 
 .breadcrumb{
@@ -666,20 +591,6 @@ cursor:pointer;
 
 }
 
-
-footer{
-
-padding:40px;
-
-text-align:center;
-
-background:linear-gradient(90deg,#bb65ff,#ff78c7);
-
-color:#fff;
-
-}
-
-
 @media(max-width:992px){
 
 .course-container{
@@ -693,15 +604,7 @@ grid-template-columns:repeat(2,1fr);
 
 @media(max-width:768px){
 
-header{
 
-padding:20px;
-
-flex-direction:column;
-
-gap:20px;
-
-}
 
 .search-section{
 

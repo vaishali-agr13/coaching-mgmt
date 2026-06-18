@@ -31,17 +31,10 @@ use App\Http\Controllers\ReportController;
 */
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/courses', function () {
+Route::get('/courses', [HomeController::class, 'getCourseList']);
 
+Route::get('/faculty', [HomeController::class, 'getFacultyList']);
 
-    return view('front-end.course-list');
-});
-
-Route::get('/faculty', function () {
-
-
-    return view('front-end.faculty-list');
-});
 
 Route::get('/result', function () {
 

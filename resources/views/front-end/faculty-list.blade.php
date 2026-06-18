@@ -57,7 +57,7 @@ Search
 
 <section class="department">
 
-<button class="active">
+<button class="faculty-active">
 
 All
 
@@ -148,21 +148,20 @@ Featured Faculty
 
 
 <section class="faculty-grid">
-
+@foreach($faculties as $faculty)
 
 <div class="faculty-card">
 
 <img src="https://picsum.photos/300/300?1">
 
 <h3>
-
-Rahul Sharma
+{{$faculty->user->name}}
 
 </h3>
 
 <p>
 
-Laravel Expert
+{{$faculty->specialization}}
 
 </p>
 
@@ -179,9 +178,9 @@ View Profile
 </button>
 
 </div>
+@endforeach
 
-
-<div class="faculty-card">
+<!-- <div class="faculty-card">
 
 <img src="https://picsum.photos/300/300?2">
 
@@ -333,7 +332,7 @@ View Profile
 
 </button>
 
-</div>
+</div> -->
 
 
 </section>
@@ -447,82 +446,6 @@ Join Now
 @endsection
 
 <style>
-    *{
-
-margin:0;
-
-padding:0;
-
-box-sizing:border-box;
-
-font-family:'Poppins',sans-serif;
-
-}
-
-
-body{
-
-background:#fff;
-
-}
-
-
-header{
-
-padding:20px 80px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-
-.logo{
-
-font-size:28px;
-
-font-weight:700;
-
-}
-
-
-nav a{
-
-text-decoration:none;
-
-margin:0 15px;
-
-color:#333;
-
-}
-
-
-.active{
-
-color:#d26df7;
-
-}
-
-
-header button{
-
-padding:10px 25px;
-
-border:none;
-
-border-radius:25px;
-
-background:linear-gradient(90deg,#bb65ff,#ff85c8);
-
-color:#fff;
-
-cursor:pointer;
-
-}
-
 
 .breadcrumb{
 
@@ -535,20 +458,20 @@ background:#faf5ff;
 
 .hero{
 
-height:450px;
+       height:450px;
+    margin:30px 40px;
+    padding:80px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:linear-gradient(90deg,#c06eff,#ff91ca);
+    color:#fff;
+    border-radius:20px;
 
-padding:80px;
+}
 
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-background:linear-gradient(90deg,#c06eff,#ff91ca);
-
-color:#fff;
-
+.hero > div{
+    padding-left:40px;   /* text ko left se space */
 }
 
 
@@ -588,11 +511,7 @@ cursor:pointer;
 
 
 .hero img{
-
-height:320px;
-
-border-radius:20px;
-
+    margin-right:40px;   /* image ko right se space */
 }
 
 
@@ -688,7 +607,11 @@ margin-top:40px;
 
 }
 
+.faculty-active{
 
+color:#d26df7;
+
+}
 .featured-box div{
 
 padding:40px;
@@ -872,16 +795,6 @@ cursor:pointer;
 }
 
 
-footer{
-
-padding:40px;
-
-text-align:center;
-
-background:#fff;
-
-}
-
 
 @media(max-width:992px){
 
@@ -905,16 +818,6 @@ grid-template-columns:1fr 1fr;
 
 
 @media(max-width:768px){
-
-header{
-
-padding:20px;
-
-flex-direction:column;
-
-gap:20px;
-
-}
 
 .hero{
 

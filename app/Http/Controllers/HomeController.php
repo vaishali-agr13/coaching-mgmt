@@ -82,7 +82,20 @@ class HomeController extends Controller
 
             
         }
+        public function getCourseList(){
+           $courses = Course::all();
+
+
+           return view('front-end.course-list',compact('courses'));
+
+        }
+
+        public function getFacultyList(){
+            $faculties = Faculty::with('user')->latest()->get();            
+            return view('front-end.faculty-list',compact('faculties'));
+        }
     }
+
     
 
 
