@@ -4,33 +4,21 @@
 
 <!-- Hero -->
 
-<section class="about-banner">
-
-<div class="container">
-
-<div class="about-heading">
-
-<span>ABOUT Best Home Tutor Coaching</span>
-
-<h1>
-
-Shaping Futures Through
-
-Quality Education
-
-</h1>
-
-<p>
-
-At Best Home Tutor Coaching, we are committed to empowering students with knowledge,
-skills, and confidence to excel in academics and build successful careers.
-
-</p>
-
-</div>
-
-</div>
-
+<section class="about-banner" style="background: linear-gradient(to right, #b066fe, #ff6fa2); padding: 60px 0; text-align: center;">
+  <div class="container">
+    <div class="about-heading">
+      <span style="color: #ffffff; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px;">
+        ABOUT Best Home Tutor Coaching
+      </span>
+      <h1 style="color: #ffffff; font-size: 3rem; margin-bottom: 20px; font-weight: bold;">
+        Shaping Futures Through Quality Education
+      </h1>
+      <p style="color: #ffffff; font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6; opacity: 0.9;">
+        At Best Home Tutor Coaching, we are committed to empowering students with knowledge,
+        skills, and confidence to excel in academics and build successful careers.
+      </p>
+    </div>
+  </div>
 </section>
 
 

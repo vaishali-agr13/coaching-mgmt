@@ -13,6 +13,7 @@ class Admission extends Model
 
     protected $fillable = [
         'first_name',
+        'application_number',
         'last_name',
         'email',
         'phone',

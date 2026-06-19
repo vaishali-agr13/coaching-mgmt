@@ -545,7 +545,8 @@
                 <div class="bullet-feature"><i class="fa-solid fa-check"></i> Direct Faculty Mentorship</div>
             </div>
             <div class="form-input-side">
-                <form action="#" method="POST">
+                <form action="{{ route('admission.redirect') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label for="student_name">Full Name</label>
                         <input type="text" id="student_name" name="name" placeholder="Enter full name" required>
@@ -556,12 +557,17 @@
                     </div>
                     <div class="form-group">
                         <label for="course_select">Select Desired Course</label>
-                        <select id="course_select" name="course" required>
-                            <option value="">-- Choose Course --</option>
-                            <option value="java">Java Full Stack Development</option>
-                            <option value="python">Python Full Stack Development</option>
-                            <option value="html">HTML & CSS Frameworks</option>
-                        </select>
+                        <select name="applied_course_id" required>
+                                <option value="">Select Course</option>
+
+                                @foreach($courses as $course)
+
+                                    <option value="{{ $course->id }}">
+                                        {{ $course->course_name }}
+                                    </option>
+
+                                @endforeach
+                       </select>
                     </div>
                     <button type="submit" class="btn-submit-form">Submit Application</button>
                 </form>

@@ -19,8 +19,23 @@
     </div>
 </section>
 
+
+
 <section class="admission-section">
+  
     <div class="container">
+
+        @if(session('success'))
+            <div class="success-message">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="form-wrapper">
             <div class="section-heading">
                 <span>Admission Form</span>
@@ -36,17 +51,17 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" name="first_name" placeholder="Enter first name" required>
+                        <input type="text" name="first_name" value="{{ old('first_name', $admissionData['first_name'] ?? '') }}" placeholder="Enter first name" required>
                     </div>
 
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" name="last_name" placeholder="Enter last name" required>
+                        <input type="text" name="last_name" value="{{ old('last_name', $admissionData['last_name'] ?? '') }}" placeholder="Enter last name" required>
                     </div>
 
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="email" placeholder="Enter email address" required>
+                        <input type="email" name="email" value="{{ old('email', $admissionData['email'] ?? '') }}" placeholder="Enter email address" required>
                     </div>
 
                     <div class="form-group">
@@ -71,11 +86,26 @@
                             <option value="male">Male</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label>Education Background</label>
-                        <textarea name="education_background" rows="4" placeholder="Enter your educational background" required></textarea>
+                        <label>Cousrse</label>
+
+                       <select name="applied_course_id" required>
+                                <option value="">Select Course</option>
+
+                                @foreach($courses as $course)
+
+                                    <option
+                                        value="{{ $course->id }}"
+                                        {{ old('applied_course_id', $admissionData['applied_course_id'] ?? '') == $course->id ? 'selected' : '' }}
+                                    >
+                                        {{ $course->course_name }}
+                                    </option>
+
+                                @endforeach
+                       </select>
                     </div>
+
+                   
 
                     <div class="form-group">
                         <label>Application Date</label>
@@ -91,14 +121,11 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label>Reviewed By</label>
-                        <input type="text" name="reviewed_by" placeholder="Reviewer name" required>
-                    </div>
+                   
 
-                    <div class="form-group">
-                        <label>Review Date</label>
-                        <input type="date" name="review_date" required>
+                     <div class="form-group">
+                        <label>Education Background</label>
+                        <textarea name="education_background" rows="4" placeholder="Enter your educational background" required></textarea>
                     </div>
                 </div>
 
@@ -252,5 +279,21 @@ textarea:focus {
     .breadcrumb-section h1 {
         font-size: 36px;
     }
+}
+
+.success-message{
+    width: 50%;
+    margin: 20px auto;
+    padding: 15px;
+
+    text-align: center;
+
+    background: #d1e7dd;
+    color: #0f5132;
+
+    border: 1px solid #badbcc;
+    border-radius: 8px;
+
+    font-weight: 600;
 }
 </style>

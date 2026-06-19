@@ -11,17 +11,15 @@ class Student extends Model
 
     protected $fillable = [
         'user_id',
+        'parent_id',
         'roll_number',
         'registration_number',
         'date_of_birth',
         'gender',
-        'father_name',
-        'mother_name',
         'address',
         'city',
         'state',
         'postal_code',
-        'parent_phone',
         'admission_date',
         'status',
     ];
@@ -30,6 +28,12 @@ class Student extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(ParentModel::class);
+    }
+
 
     public function enrollments()
     {

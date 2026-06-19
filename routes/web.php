@@ -18,7 +18,7 @@ use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ReportController;
-
+use App\Http\Controllers\ParentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,14 +36,11 @@ Route::get('/courses', [HomeController::class, 'getCourseList']);
 Route::get('/faculty', [HomeController::class, 'getFacultyList']);
 
 
-Route::get('/result', function () {
+Route::get('/result', function () { return view('front-end.result');});
 
-
-    return view('front-end.result');
-});
-
-Route::get('/admission', [HomeController::class, 'createAdmissionForm']);
+Route::get('/admission', [HomeController::class, 'createAdmissionForm'])->name('admission');
 Route::post('/admission',[HomeController::class,'store'])->name('admission.store');
+Route::post('/admission-redirect', [HomeController::class, 'redirectToAdmission'])->name('admission.redirect');
 
 Route::get('/about-us', function () {
 
@@ -142,20 +139,41 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/{id}/enrollments', [CourseController::class, 'enrollments'])->name('enrollments'); // View enrollments
         Route::post('/{id}/status', [CourseController::class, 'updateStatus'])->name('updateStatus');   // Change status
     });
+
+    Route::prefix('parents')->name('parents.')->group(function () {
+
+        Route::get('/', [ParentController::class,'index'])->name('index');
+
+        Route::get('/create', [ParentController::class,'create'])->name('create');
+
+        Route::post('/', [ParentController::class,'store'])->name('store');
+
+        Route::get('/{id}/edit', [ParentController::class,'edit'])->name('edit');
+
+        Route::put('/{id}', [ParentController::class,'update'])->name('update');
+
+        Route::delete('/{id}', [ParentController::class,'destroy'])->name('destroy');
+
+        Route::get('/dashboard',function(){ return view('admin.parents.dashboard');})->name('dashboard');
+
+    });
     
     // ============================================
     // ADMISSION MANAGEMENT
     // ============================================
     Route::prefix('admissions')->name('admissions.')->group(function () {
-        Route::get('/', [AdmissionController::class, 'index'])->name('index');                 // List all applications
+
+        Route::get('/', [AdmissionController::class, 'index'])->name('index');  
+        Route::get('/report/summary', [AdmissionController::class, 'report'])->name('report'); // Admission report
+               // List all applications
         Route::get('/{id}', [AdmissionController::class, 'show'])->name('show');               // View application details
         Route::post('/{id}/approve', [AdmissionController::class, 'approve'])->name('approve'); // Approve admission
         Route::post('/{id}/reject', [AdmissionController::class, 'reject'])->name('reject');   // Reject admission
         Route::post('/{id}/waitlist', [AdmissionController::class, 'waitlist'])->name('waitlist'); // Waitlist admission
         Route::get('/{id}/edit', [AdmissionController::class, 'edit'])->name('edit');          // Edit form
         Route::put('/{id}', [AdmissionController::class, 'update'])->name('update');           // Update admission
-        Route::delete('/{id}', [AdmissionController::class, 'destroy'])->name('destroy');      // Delete admission
-        Route::get('/report/summary', [AdmissionController::class, 'report'])->name('report'); // Admission report
+        Route::delete('/{id}', [AdmissionController::class, 'destroy'])->name('destroy');   
+        Route::post('/{id}/status', [AdmissionController::class, 'changeStatus'])->name('status');
     });
     
     // ============================================

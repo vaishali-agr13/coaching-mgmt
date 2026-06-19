@@ -97,9 +97,11 @@ class HomeController extends Controller
         }
 
         public function createAdmissionForm(){
-                       $courses = Course::all();
+                $admissionData = session('admission_data', []);
 
-             return view('front-end.admission',compact('courses'));
+                $courses = Course::all();
+
+             return view('front-end.admission',compact('courses','admissionData'));
      
         }
 
@@ -122,13 +124,13 @@ class HomeController extends Controller
                         'education_background' => 'required',
 
                         'application_date' => 'required',
-                        'reviewed_by '=>'required',
-                        'review_date'=>'required',
+                    
 
                     ]);
 
 
                     Admission::create([
+                        'application_number'=>'ADM-' . now()->format('YmdHis'),
 
                         'first_name' => $request->first_name,
 
@@ -150,28 +152,53 @@ class HomeController extends Controller
                         'notes' => $request->notes,
                         'gender' => $request->gender,
 
-                        'reviewed_by' => $request->reviewed_by,
+                        'reviewed_by' => null,
 
-                        'review_date' => $request->review_date,
+                        'review_date' => null
 
                     ]);
+                    session()->forget('admission_data');
 
 
-                    return redirect('/admission')
-                        ->with(
-                            'success',
+
+                    return redirect()->route('admission')->with( 'success',
                             'Application submitted successfully.'
                         );
             } 
          catch (\Exception $e) {
-echo $e->getMessage();die;
-        return redirect()
-            ->back()
-            ->withInput()
-            ->with('error', $e->getMessage());
-    }
+            echo $e->getMessage();die;
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('error', $e->getMessage());
+          }
         }
+
+    public function redirectToAdmission(Request $request)
+        {
+            $fullName = trim($request->name);
+
+            $nameParts = explode(' ', $fullName, 2);
+
+            $firstName = $nameParts[0] ?? '';
+
+            $lastName = $nameParts[1] ?? '';
+
+            $data = [
+                'first_name' => $firstName,
+                'last_name'  => $lastName,
+                'email'      => $request->email,
+                'applied_course_id'=> $request->applied_course_id,
+
+            ];
+
+            session(['admission_data' => $data]);
+
+             return redirect('/admission');       
+         }
+
     }
+
 
 
 

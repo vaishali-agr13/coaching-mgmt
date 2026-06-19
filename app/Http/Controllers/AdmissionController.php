@@ -206,19 +206,52 @@ class AdmissionController extends Controller
      */
     public function report()
     {
+      
         try {
             $total = Admission::count();
             $pending = Admission::where('application_status', 'pending')->count();
             $approved = Admission::where('application_status', 'approved')->count();
             $rejected = Admission::where('application_status', 'rejected')->count();
-            $waitlist = Admission::where('application_status', 'waitlist')->count();
+            $admissions = Admission::with('applied_course')->latest()->get();
 
             return view('admin.admissions.report', compact(
-                'total', 'pending', 'approved', 'rejected', 'waitlist'
+                'total', 'pending', 'approved', 'rejected','admissions'
             ));
-        } catch (\Exception $e) {
-            Log::error('Admission report error: ' . $e->getMessage());
+        } catch (\Exception $e) { 
+             Log::error('Admission report error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error loading report.');
         }
     }
+
+    public function changeStatus(Request $request, $id)
+        {
+            try {
+
+                $request->validate([
+                    'application_status' => 'required|in:pending,approved,rejected'
+                ]);
+
+                $admission = Admission::findOrFail($id);
+
+                $admission->update([
+
+                    'application_status' => $request->application_status,
+
+                    'reviewed_by' => auth()->id(),
+
+                    'review_date' => now(),
+
+                ]);
+
+                return redirect()
+                    ->back()
+                    ->with('success', 'Admission status updated successfully.');
+
+            } catch (\Exception $e) {
+
+                return redirect()
+                    ->back()
+                    ->with('error', $e->getMessage());
+            }
+        }
 }

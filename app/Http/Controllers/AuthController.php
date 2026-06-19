@@ -97,6 +97,10 @@ class AuthController extends Controller
                         return redirect()->route('admin.students.dashboard')
                             ->with('success', 'Welcome ' . $user->name);
 
+                    case 'parent':
+                        return redirect()->route('admin.parents.dashboard')
+                            ->with('success', 'Welcome ' . $user->name);
+
                     default:
 
                         Auth::logout();
