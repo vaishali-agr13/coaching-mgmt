@@ -1131,29 +1131,55 @@
 
 /* Grid Layout */
 .testimonials-grid {
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-  flex-wrap: wrap; /* Responsive banane ke liye */
+  display: grid;
+    /* Isse 3 columns banenge side-by-side, aur agar screen choti hui to automatic niche adjust ho jayenge */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 24px; /* Boxes ke beech ka space */
+    padding: 20px 0;
+    width: 100%; /* Responsive banane ke liye */
 }
 
 /* Card Styling */
 .testimonial-card {
-  background: #ffffff;
-  border-radius: 24px;
-  padding: 40px;
-  flex: 1;
-  min-width: 300px;
-  max-width: 550px;
-  text-align: left;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-  border: 1px solid #f0f0f0;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+    display: flex;
+    flex-direction: column;
+    text-align: left; 
+    
+    /* Height ko kam karne ke liye min-height ko 240px ya 250px kar dein */
+    min-height: 240px; 
+    
+    justify-content: flex-start;
 }
 
+.student-header {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+    margin-bottom: 6px;
+}
+
+.review-avatar-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #00828a; /* Google Teal Color */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.student-meta {
+    display: flex;
+    flex-direction: column;
+}
 /* Quote Icon Styling */
 .quote-icon {
   background-color: #e53935; /* Red Circle */
@@ -1174,10 +1200,19 @@
 
 /* Text Styling */
 .testimonial-text {
-  font-size: 15px;
-  color: #4a4a4a;
-  line-height: 1.6;
-  margin-bottom: 25px;
+ font-size: 14px;
+    line-height: 1.5;
+    color: #3c4043;
+    margin-top: 0; /* Star ke just neeche se start hoga */
+    margin-bottom: 12px;
+}
+
+.star-rating {
+color: #fbbc05; 
+    font-size: 18px;
+    margin-top: 0px;    /* Top gap khatam karne ke liye */
+    margin-bottom: 8px; /* Content se gap control karne ke liye */
+    line-height: 1;
 }
 
 /* Student Info */
@@ -1186,12 +1221,17 @@
 }
 
 .student-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0;
+ margin: 0;
+    font-size: 15px;
+    color: #202124; 
+    font-weight: 600;
 }
 
+.review-time {
+    font-size: 12px;
+    color: #70757a; 
+    margin-top: 2px;
+}
 .student-marks {
   font-size: 14px;
   color: #e53935; /* Red color for marks */

@@ -10,7 +10,7 @@
 
 <div class="about-heading">
 
-<span>ABOUT NAVSKILLS</span>
+<span>ABOUT Best Home Tutor Coaching</span>
 
 <h1>
 
@@ -22,7 +22,7 @@ Quality Education
 
 <p>
 
-At NavSkills, we are committed to empowering students with knowledge,
+At Best Home Tutor Coaching, we are committed to empowering students with knowledge,
 skills, and confidence to excel in academics and build successful careers.
 
 </p>
@@ -58,7 +58,7 @@ Who We Are
 
 <p>
 
-NavSkills is a modern coaching institute dedicated to helping students achieve academic excellence through innovative learning methods.
+Best Home Tutor Coaching is a modern coaching institute dedicated to helping students achieve academic excellence through innovative learning methods.
 
 </p>
 
@@ -101,7 +101,7 @@ We provide expert faculty guidance, structured study plans, regular assessments,
 
 <div class="section-title">
 
-<h2>Why Choose NavSkills?</h2>
+<h2>Why Choose Best Home Tutor Coaching?</h2>
 
 <p>
 
@@ -186,7 +186,7 @@ Continuous guidance and doubt-solving sessions.
 
 <div>
 
-<h2>50+</h2>
+<h2>20+</h2>
 
 <p>Faculty</p>
 
@@ -223,7 +223,7 @@ Continuous guidance and doubt-solving sessions.
 
 <h2>
 
-Begin Your Journey With NavSkills
+Begin Your Journey With Best Home Tutor Coaching
 
 </h2>
 

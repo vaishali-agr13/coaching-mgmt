@@ -466,70 +466,72 @@
             
             <div class="testimonials-grid">
             
-                <div class="testimonial-card">
-                    <div class="quote-icon">,,</div>
-                    <p class="testimonial-text">
-                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application. Physics problem-solving skills improve drastically, Chemistry becomes systematic, and Biology revision is very effective. Regular performance tracking and feedback sessions help students identify weaknesses early. Overall, a highly supportive and result-driven institute."
-                    </p>
-                    <div class="student-info">
-                    <h4 class="student-name">Vaibhav Patidar</h4>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="quote-icon">,,</div>
-                    <p class="testimonial-text">
-                    "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—Best Home Tutor Coaching isn't just a class, it's a family."
-                    </p>
-                    <div class="student-info">
-                    <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
-                    <span class="student-marks">670 Marks</span>
+            <div class="testimonial-card">
+                <div class="student-header">
+                    <div class="review-avatar-circle">YD</div> 
+                    
+                    <div class="student-meta">
+                        <h4 class="student-name">Yogesh Deshmukh</h4>
+                        <span class="review-time">2 months ago</span>
                     </div>
                 </div>
 
-                <div class="testimonial-card">
-                    <div class="quote-icon">,,</div>
-                    <p class="testimonial-text">
-                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application. Physics problem-solving skills improve drastically, Chemistry becomes systematic, and Biology revision is very effective. Regular performance tracking and feedback sessions help students identify weaknesses early. Overall, a highly supportive and result-driven institute."
-                    </p>
-                    <div class="student-info">
-                    <h4 class="student-name">Vaibhav Patidar</h4>
-                    </div>
+                <div class="star-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="quote-icon">,,</div>
-                    <p class="testimonial-text">
-                    "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—Best Home Tutor Coaching isn't just a class, it's a family."
-                    </p>
-                    <div class="student-info">
-                    <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
-                    <span class="student-marks">670 Marks</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon">,,</div>
-                    <p class="testimonial-text">
-                    "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—Best Home Tutor Coaching isn't just a class, it's a family."
-                    </p>
-                    <div class="student-info">
-                    <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
-                    <span class="student-marks">670 Marks</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon">,,</div>
-                    <p class="testimonial-text">
-                    "They made NEET feel like a game I could actually win. Daily targets, doubts cleared on WhatsApp at night—Best Home Tutor Coaching isn't just a class, it's a family."
-                    </p>
-                    <div class="student-info">
-                    <h4 class="student-name">SUMIT PANWAR, NEET 2024</h4>
-                    <span class="student-marks">670 Marks</span>
-                    </div>
-                </div>
-            
+
+                <p class="testimonial-text">
+                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                </p>
             </div>
-            
+             <div class="testimonial-card">
+                <div class="student-header">
+                    <div class="review-avatar-circle">VP</div> 
+                    
+                    <div class="student-meta">
+                        <h4 class="student-name">Vaibhav Patidar</h4>
+                        <span class="review-time">3 months ago</span>
+                    </div>
+                </div>
+
+                <div class="star-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+
+                <p class="testimonial-text">
+                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                </p>
+            </div>
+             <div class="testimonial-card">
+                <div class="student-header">
+                    <div class="review-avatar-circle">ST</div> 
+                    
+                    <div class="student-meta">
+                        <h4 class="student-name">Suman Tiwari</h4>
+                        <span class="review-time">1 months ago</span>
+                    </div>
+                </div>
+
+                <div class="star-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+
+                <p class="testimonial-text">
+                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                </p>
+            </div>
         </div>
     </section>
 
