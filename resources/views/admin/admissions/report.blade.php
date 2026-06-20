@@ -95,8 +95,16 @@
 
                         <td>{{ $admission->phone }}</td>
 
-                        <td>{{ $admission->applied_course->course_name ?? '-' }}</td>
+                        <td>
 
+                                @foreach($admission->courses as $course)
+
+                                    {{ $course->course_name }}<br>
+
+                                @endforeach
+
+                        </td>
+                        
                         <td>{{ \Carbon\Carbon::parse($admission->application_date)->format('d M Y') }}</td>
 
                         <td>

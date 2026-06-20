@@ -206,18 +206,34 @@ class AdmissionController extends Controller
      */
     public function report()
     {
-      
+     
         try {
             $total = Admission::count();
+           
             $pending = Admission::where('application_status', 'pending')->count();
+            
             $approved = Admission::where('application_status', 'approved')->count();
             $rejected = Admission::where('application_status', 'rejected')->count();
-            $admissions = Admission::with('applied_course')->latest()->get();
+             
+           $admissions = Admission::latest()->get();
+
+            foreach ($admissions as $admission) {
+
+                $admission->courses = Course::whereIn(
+                    'id',
+                    $admission->applied_course_id ?? []
+                )->get();
+            }
 
             return view('admin.admissions.report', compact(
-                'total', 'pending', 'approved', 'rejected','admissions'
+                'total',
+                'pending',
+                'approved',
+                'rejected',
+                'admissions'
             ));
         } catch (\Exception $e) { 
+            echo $e->getMessage();die;
              Log::error('Admission report error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error loading report.');
         }
