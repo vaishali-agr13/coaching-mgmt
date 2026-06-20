@@ -59,7 +59,7 @@
                 </div>
 
                 <form action="{{ route('admin.courses.update', $course->id) }}"
-                      method="POST">
+                      method="POST" enctype="multipart/form-data">
 
                     @csrf
                     @method('PUT')
@@ -93,6 +93,24 @@
                                            required>
                                 </div>
                             </div>
+
+
+                             <div class="col-md-4">
+                                 <div class="form-group">
+                                    <label class="form-label">Course Image</label>
+
+                                    <input type="file"
+                                        name="course_image"
+                                        class="form-control"
+                                        accept="image/*">
+                                  </div>
+                                </div>
+
+                                @if($course->course_image)
+                                    <img src="{{ asset('public/uploads/courses/'.$course->course_image) }}"
+                                      class="course-preview"
+                                        alt="{{ $course->course_name }}">
+                                @endif
 
                             <!-- Category -->
                             <div class="col-md-4">
@@ -283,3 +301,13 @@
 </div>
 
 @endsection
+
+<style>
+    .course-preview{
+    width: 120px !important;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+    </style>

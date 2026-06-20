@@ -26,7 +26,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form action="{{ route('admin.faculty.store') }}" method="POST">
+            <form action="{{ route('admin.faculty.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row g-3">
@@ -52,6 +52,15 @@
                     <div class="col-md-4">
                         <label class="form-label">Department</label>
                         <input type="text" name="department" class="form-control" placeholder="Computer Science">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Faculty Image</label>
+
+                        <input type="file"
+                            name="faculty_image"
+                            class="form-control"
+                            accept="image/*">
                     </div>
 
                     {{-- Specialization --}}

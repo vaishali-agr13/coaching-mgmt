@@ -29,6 +29,7 @@ class Admission extends Model
     ];
 
     protected $casts = [
+        'applied_course_id' => 'array',
         'application_date' => 'datetime',
         'review_date' => 'datetime',
         'created_at' => 'datetime',

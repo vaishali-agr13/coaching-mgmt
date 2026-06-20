@@ -54,7 +54,6 @@
                     <th>ID</th>
                     <th>Cover</th>
                     <th>Album</th>
-                    <th>Images</th>
                     <th>Visibility</th>
                     <th>Action</th>
                 </tr>
@@ -70,23 +69,22 @@
 
                         <td width="100">
                             @if($album->cover_image)
-                                <img src="{{ asset('storage/'.$album->cover_image) }}"
+                                <img src="{{ asset('public/uploads/gallery-covers/'.$album->cover_image) }}"
                                      width="80">
                             @endif
                         </td>
 
                         <td>{{ $album->album_name }}</td>
 
-                        <td>{{ $album->images_count }}</td>
 
                         <td>{{ ucfirst($album->visibility) }}</td>
 
                         <td>
 
-                            <a href="{{ route('admin.gallery.show',$album->id) }}"
+                            <!-- <a href="{{ route('admin.gallery.show',$album->id) }}"
                                class="btn btn-info btn-sm">
                                 View
-                            </a>
+                            </a> -->
 
                             <a href="{{ route('admin.gallery.edit',$album->id) }}"
                                class="btn btn-warning btn-sm">

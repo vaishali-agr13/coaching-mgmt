@@ -41,10 +41,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 <a href="/faculty">Faculty</a>
 
 <a href="/result">Results</a>
-<a href="#">Gallery</a>
-<a href="#">Blog</a>
+<a href="/gallery">Gallery</a>
+<a href="/blogs">Blog</a>
 <a href="/admission">Online Admission</a>
-<a href="#">Contact Us</a>
+<a href="/contact-us">Contact Us</a>
 
 
 </nav>

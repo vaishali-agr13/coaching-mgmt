@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form action="{{ route('admin.faculty.update', $faculty->id) }}" method="POST">
+            <form action="{{ route('admin.faculty.update', $faculty->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -53,6 +53,29 @@
                         <label class="form-label">Specialization</label>
                         <input type="text" name="specialization" class="form-control"
                                value="{{ $faculty->specialization }}">
+                    </div>
+
+                    @if($faculty->faculty_image)
+
+                        <div class="mt-2">
+
+                            <img src="{{ asset('public/uploads/faculty/'.$faculty->faculty_image) }}"
+                                alt="Faculty Image"
+                                 style="width:120px; height:120px; object-fit:cover; border-radius:10px;"
+                                class="faculty-preview">
+
+                        </div>
+
+                    @endif
+                    <div class="col-md-4">
+
+                        <label class="form-label">Faculty Image</label>
+
+                        <input type="file"
+                            name="faculty_image"
+                            class="form-control"
+                            accept="image/*">
+
                     </div>
 
                     {{-- Qualification --}}

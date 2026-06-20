@@ -22,7 +22,7 @@
     <h3 class="card-title">Course Details</h3>
 </div>
 
-<form action="{{ route('admin.courses.store') }}" method="POST">
+<form action="{{ route('admin.courses.store') }}" method="POST"  enctype="multipart/form-data">
 @csrf
 
 <div class="card-body">
@@ -49,10 +49,21 @@
     </div>
 </div>
 
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Course Image</label>
+
+            <input type="file"
+                name="course_image"
+                class="form-control"
+                accept="image/*" required>
+        </div>
+    </div>   
+
 <div class="col-md-6">
     <div class="form-group">
         <label>Category</label>
-        <select name="category" class="form-control">
+        <select name="category" class="form-control" required> 
             <option value="Programming">Programming</option>
             <option value="Commerce">Commerce</option>
             <option value="Management">Management</option>
@@ -63,7 +74,7 @@
 <div class="col-md-6">
     <div class="form-group">
         <label>Level</label>
-        <select name="level" class="form-control">
+        <select name="level" class="form-control" required>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
@@ -76,7 +87,7 @@
         <label>Duration Hours</label>
         <input type="number"
                name="duration_hours"
-               class="form-control">
+               class="form-control" required>
     </div>
 </div>
 
@@ -85,7 +96,7 @@
         <label>Maximum Students</label>
         <input type="number"
                name="max_students"
-               class="form-control">
+               class="form-control" required>
     </div>
 </div>
 
@@ -94,7 +105,7 @@
         <label>Faculty</label>
 
         <select name="faculty_id"
-                class="form-control">
+                class="form-control" required>
 
             <option value="">Select Faculty</option>
 
@@ -115,7 +126,7 @@
         <input type="number"
                step="0.01"
                name="fee"
-               class="form-control">
+               class="form-control" required>
     </div>
 </div>
 
@@ -124,7 +135,7 @@
         <label>Start Date</label>
         <input type="date"
                name="start_date"
-               class="form-control">
+               class="form-control" required>
     </div>
 </div>
 
@@ -133,7 +144,7 @@
         <label>End Date</label>
         <input type="date"
                name="end_date"
-               class="form-control">
+               class="form-control" required>
     </div>
 </div>
 
@@ -142,7 +153,7 @@
         <label>Description</label>
         <textarea name="description"
                   rows="4"
-                  class="form-control"></textarea>
+                  class="form-control" required></textarea>
     </div>
 </div>
 
@@ -150,7 +161,7 @@
     <div class="form-group">
         <label>Status</label>
 
-        <select name="status" class="form-control">
+        <select name="status" class="form-control" required>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
         </select>

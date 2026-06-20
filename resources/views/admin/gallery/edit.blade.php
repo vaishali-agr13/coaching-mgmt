@@ -27,10 +27,8 @@
             <textarea name="description"
                       class="form-control mb-3">{{ $album->description }}</textarea>
 
-            <input type="date"
-                   name="album_date"
-                   value="{{ $album->album_date }}"
-                   class="form-control mb-3">
+            <input type="date" name="album_date"  class="form-control mb-3"
+                       value="{{ old('album_date', \Carbon\Carbon::parse($album->album_date)->format('Y-m-d')) }}">
 
             <select name="visibility"
                     class="form-control mb-3">
@@ -52,6 +50,14 @@
             <input type="file"
                    name="cover_image"
                    class="form-control mb-3">
+
+            @if(!empty($album->cover_image))
+                    <img
+                        src="{{ asset('public/uploads/gallery-covers/'.$album->cover_image) }}"
+                        width="120"
+                        height="120"
+                        alt="Cover Image">
+            @endif
 
             <button class="btn btn-success">
                 Update Album

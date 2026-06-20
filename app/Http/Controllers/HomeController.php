@@ -8,7 +8,8 @@ use App\Models\CourseEnrollment;
 use App\Models\Faculty;
 use App\Models\ExamResult;
 use App\Models\Admission;
-
+use App\Models\BlogPost;
+use App\Models\GalleryAlbum;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -124,6 +125,7 @@ class HomeController extends Controller
                         'education_background' => 'required',
 
                         'application_date' => 'required',
+                        'applied_course_id' => 'required|array',
                     
 
                     ]);
@@ -196,6 +198,25 @@ class HomeController extends Controller
 
              return redirect('/admission');       
          }
+
+         public function contactUs(){
+              return view('front-end.contact-us');
+         } 
+        
+        public function gallery(){
+                $galleryImages = GalleryAlbum::latest()->get();
+
+              return view('front-end.gallery',compact('galleryImages'));
+        }
+
+        public function blog(){
+                $blogPosts = BlogPost::latest()->get();
+
+              return view('front-end.blog-post',compact('blogPosts'));
+        }
+         
+        
+         
 
     }
 

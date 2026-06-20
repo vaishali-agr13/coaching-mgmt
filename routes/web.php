@@ -35,12 +35,19 @@ Route::get('/courses', [HomeController::class, 'getCourseList']);
 
 Route::get('/faculty', [HomeController::class, 'getFacultyList']);
 
+Route::get('/contact-us', [HomeController::class, 'contactUs']);
+
+Route::get('/gallery', [HomeController::class, 'gallery']);
+
+Route::get('/blogs', [HomeController::class, 'blog']);
+
 
 Route::get('/result', function () { return view('front-end.result');});
 
 Route::get('/admission', [HomeController::class, 'createAdmissionForm'])->name('admission');
 Route::post('/admission',[HomeController::class,'store'])->name('admission.store');
 Route::post('/admission-redirect', [HomeController::class, 'redirectToAdmission'])->name('admission.redirect');
+Route::get('/course/{id}', [CourseController::class, 'showDetails'])->name('course.details');    
 
 Route::get('/about-us', function () {
 

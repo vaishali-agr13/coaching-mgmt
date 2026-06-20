@@ -148,17 +148,17 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-book-bookmark"></i></div>
-                <h3>{{$activeCoursesCount}}</h3>
+                <h3 class="counter" data-target="{{$activeCoursesCount}}">0+</h3>
                 <p>Trending Live Courses</p>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                <h3>{{$facultyCount}}</h3>
-                <p>Expert Industry Mentors</p>
+                 <h3 class="counter" data-target="{{$facultyCount}}">0+</h3>                
+                 <p>Expert Industry Mentors</p>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-user-check"></i></div>
-                <h3>{{$activeEnrolledStudents}}+</h3>
+                <h3 class="counter" data-target="{{$activeEnrolledStudents}}">0+</h3>
                 <p>Active Students Enrolled</p>
             </div>
         </div>
@@ -309,18 +309,26 @@
             </div>
             <div class="cards-grid">
                 @foreach($courses as $course)
+
+                
+
                     <div class="course-card">
-                        <div class="card-img-placeholder java-color"><i class="fa-brands fa-java"></i></div>
+                        <a href="{{ route('course.details', $course->id) }}" class="course-link">
+                        <div class="card-img-placeholder java-color">
+                          <img src="{{ asset('public/uploads/courses/' . $course->course_image) }}" alt="{{ $course->course_name }}" class="course-image">
+                        </div>
+                        </a>
                         <div class="card-info">
                             <span class="badge-tag tag-purple">{{$course->course_code}}</span>
                             <h4>{{$course->course_name}}</h4>
-                            <p>Return the sorted string. If there are multiple answers, return any of them.</p>
+                            <p>{{$course->description}}</p>
                         </div>
                         <div class="card-footer">
                             <span class="price">₹{{$course->fee}}</span>
                             <a href="#" class="enroll-btn">Enroll Now &rarr;</a>
                         </div>
                     </div>
+                
                 <!-- <div class="course-card">
                     <div class="card-img-placeholder python-color"><i class="fa-brands fa-python"></i></div>
                     <div class="card-info">
@@ -359,7 +367,9 @@
             @foreach($faculties as $faculty)
 
                 <div class="faculty-card">
-                    <div class="faculty-avatar-wrapper"><i class="fa-solid fa-user-tie"></i></div>
+                    <div class="faculty-avatar-wrapper">
+                        <img src="{{ asset('public/uploads/faculty/' . $faculty->faculty_image) }}">
+                    </div>
                     <h4>{{$faculty->user->name}}</h4>
                     <p class="designation">{{$faculty->department}}</p>
                     <span class="experience">{{$faculty->experience_years}}+ Yrs Exp</span>
@@ -466,71 +476,139 @@
             
             <div class="testimonials-grid">
             
-            <div class="testimonial-card">
-                <div class="student-header">
-                    <div class="review-avatar-circle">YD</div> 
-                    
-                    <div class="student-meta">
-                        <h4 class="student-name">Yogesh Deshmukh</h4>
-                        <span class="review-time">2 months ago</span>
+                    <div class="testimonial-card">
+                        <div class="student-header">
+                            <div class="review-avatar-circle">YD</div> 
+                            
+                            <div class="student-meta">
+                                <h4 class="student-name">Yogesh Deshmukh</h4>
+                                <span class="review-time">2 months ago</span>
+                            </div>
+                        </div>
+
+                        <div class="star-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+
+                        <p class="testimonial-text">
+                            "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                        </p>
                     </div>
-                </div>
+                    <div class="testimonial-card">
+                        <div class="student-header">
+                            <div class="review-avatar-circle">VP</div> 
+                            
+                            <div class="student-meta">
+                                <h4 class="student-name">Vaibhav Patidar</h4>
+                                <span class="review-time">3 months ago</span>
+                            </div>
+                        </div>
 
-                <div class="star-rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
+                        <div class="star-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
 
-                <p class="testimonial-text">
-                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
-                </p>
-            </div>
-             <div class="testimonial-card">
-                <div class="student-header">
-                    <div class="review-avatar-circle">VP</div> 
-                    
-                    <div class="student-meta">
-                        <h4 class="student-name">Vaibhav Patidar</h4>
-                        <span class="review-time">3 months ago</span>
+                        <p class="testimonial-text">
+                            "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                        </p>
                     </div>
-                </div>
+                    <div class="testimonial-card">
+                        <div class="student-header">
+                            <div class="review-avatar-circle">ST</div> 
+                            
+                            <div class="student-meta">
+                                <h4 class="student-name">Suman Tiwari</h4>
+                                <span class="review-time">1 months ago</span>
+                            </div>
+                        </div>
 
-                <div class="star-rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
+                        <div class="star-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
 
-                <p class="testimonial-text">
-                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
-                </p>
-            </div>
-             <div class="testimonial-card">
-                <div class="student-header">
-                    <div class="review-avatar-circle">ST</div> 
-                    
-                    <div class="student-meta">
-                        <h4 class="student-name">Suman Tiwari</h4>
-                        <span class="review-time">1 months ago</span>
+                        <p class="testimonial-text">
+                            "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                        </p>
                     </div>
-                </div>
 
-                <div class="star-rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                </div>
+                    <div class="testimonial-card">
+                        <div class="student-header">
+                            <div class="review-avatar-circle">NS</div> 
+                            
+                            <div class="student-meta">
+                                <h4 class="student-name">Neha Shukla</h4>
+                                <span class="review-time">1 months ago</span>
+                            </div>
+                        </div>
 
-                <p class="testimonial-text">
-                    "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
-                </p>
+                        <div class="star-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+
+                        <p class="testimonial-text">
+                            "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                        </p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="student-header">
+                            <div class="review-avatar-circle">PS</div> 
+                            
+                            <div class="student-meta">
+                                <h4 class="student-name">Pooja Singh</h4>
+                                <span class="review-time">3 months ago</span>
+                            </div>
+                        </div>
+
+                        <div class="star-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+
+                        <p class="testimonial-text">
+                            "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                        </p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="student-header">
+                            <div class="review-avatar-circle">AS</div> 
+                            
+                            <div class="student-meta">
+                                <h4 class="student-name">Aarti Singhal</h4>
+                                <span class="review-time">1 months ago</span>
+                            </div>
+                        </div>
+
+                        <div class="star-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+
+                        <p class="testimonial-text">
+                            "What makes this coaching unique is its strong focus on fundamentals. Instead of memorization, teachers emphasize understanding and application."
+                        </p>
+                    </div>
             </div>
         </div>
     </section>
@@ -575,3 +653,54 @@
         </div>
     </section>
 @endsection
+
+<script>
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const counters = document.querySelectorAll('.counter');
+
+    counters.forEach(counter => {
+
+        const target = parseInt(counter.dataset.target);
+
+        let count = 0;
+
+        const hasPlus = counter.textContent.includes('+');
+
+        function updateCounter() {
+
+            const increment = Math.ceil(target / 50);
+
+            if (count < target) {
+
+                count += increment;
+
+                if (count > target) {
+                    count = target;
+                }
+
+                counter.innerText = hasPlus
+                    ? count + '+'
+                    : count;
+
+                requestAnimationFrame(updateCounter);
+
+            } else {
+
+                counter.innerText = hasPlus
+                    ? target + '+'
+                    : target;
+            }
+        }
+
+        updateCounter();
+
+    });
+
+});
+
+
+
+</script>

@@ -304,6 +304,8 @@
 
         /* --- 3. DYNAMIC STATS COUNTER SECTION (NEW) --- */
         .stats-counter-section {
+                overflow: hidden;
+
             padding: 60px 0 30px 0;
             background-color: var(--white);
         }
@@ -316,17 +318,59 @@
         }
 
         .stat-card {
-            background: #ffffff;
-            padding: 30px 20px;
-            border-radius: 20px;
-            border: 2px dashed rgba(136, 52, 227, 0.15);
-            transition: all 0.3s ease;
+           opacity: 0;
+    transform: translateY(50px);
+        transition: all .3s ease;
+
+
+    animation: cardUp .8s ease forwards;
         }
 
+        @keyframes cardUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(50px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+        .stat-card:nth-child(1){
+    animation-delay: .2s;
+}
+
+.stat-card:nth-child(2){
+    animation-delay: .4s;
+}
+
+.stat-card:nth-child(3){
+    animation-delay: .6s;
+}
         .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--brand-pink);
+              transform: translateY(-10px);
+
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
+
+        .stat-icon{
+
+    transition: transform .3s ease;
+}
+
+
+.stat-card:hover .stat-icon{
+
+    transform: rotate(10deg) scale(1.15);
+}
 
         .stat-card .stat-icon {
             font-size: 36px;
@@ -560,7 +604,7 @@
         .course-card {
             background-color: var(--white);
             color: var(--text-dark);
-            border-radius: 24px;
+           
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -569,15 +613,18 @@
         }
 
         .card-img-placeholder {
-            width: 100%;
-            height: 160px;
-            background-color: #f3f4f6;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
+            height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
         }
+
+        .course-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
         .java-color { color: #b07219; }
         .python-color { color: #3572A5; }
@@ -649,16 +696,23 @@
         }
 
         .faculty-avatar-wrapper {
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 20px auto;
+           width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: var(--brand-light-purple);
+            overflow: hidden;
+
             display: flex;
-            align-items: center;
             justify-content: center;
-            border: 3px solid var(--white);
-            box-shadow: 0 8px 15px rgba(136, 52, 227, 0.15);
+            align-items: center;
+
+            margin: 0 auto;
+        }
+
+        .faculty-avatar-wrapper img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .faculty-avatar-wrapper i {
@@ -705,12 +759,22 @@
         }
 
         .form-info-side {
-            background: var(--brand-gradient);
-            color: var(--white);
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            background-image: url('../images/about-us.png'); /* image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            padding: 40px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-info-side::before{
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
         }
 
         .form-info-side h3 {
@@ -718,6 +782,15 @@
             font-weight: 800;
             margin-bottom: 16px;
         }
+
+
+        .form-info-side h3,
+.form-info-side p,
+.form-info-side .bullet-feature{
+    position: relative;
+    z-index: 1;
+    color: #fff;
+}
 
         .form-info-side p {
             font-size: 14px;

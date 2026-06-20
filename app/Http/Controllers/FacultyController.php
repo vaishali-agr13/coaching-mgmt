@@ -67,47 +67,100 @@ class FacultyController extends Controller
     public function store(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(), [
+
+               $validator = Validator::make($request->all(), [
+
                 'user_id' => 'required',
+
                 'employee_id' => 'required|string|unique:faculty,employee_id',
+
                 'department' => 'nullable|string|max:100',
+
                 'specialization' => 'nullable|string|max:100',
+
                 'qualification' => 'nullable|string|max:255',
+
                 'experience_years' => 'nullable|integer',
+
                 'joining_date' => 'required|date',
-                'status'=>'required',
+
+                'status' => 'required',
+
                 'salary' => 'nullable|numeric',
+
                 'office_hours' => 'nullable|string|max:255',
+
                 'bio' => 'nullable|string',
+
+                'faculty_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
             ]);
+
 
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
+
+                return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
             }
 
+
+            // Image Upload
+
+            $facultyImage = null;
+
+            if ($request->hasFile('faculty_image')) {
+
+                $file = $request->file('faculty_image');
+
+                $facultyImage = time().'_'.$file->getClientOriginalName();
+
+                $file->move(public_path('uploads/faculty'), $facultyImage);
+            }
+
+
             Faculty::create([
+
                 'user_id' => $request->user_id,
+
                 'employee_id' => $request->employee_id,
+
                 'department' => $request->department,
+
                 'specialization' => $request->specialization,
+
                 'qualification' => $request->qualification,
+
                 'experience_years' => $request->experience_years,
+
                 'joining_date' => $request->joining_date,
+
                 'salary' => $request->salary,
+
                 'status' => 'active',
+
                 'office_hours' => $request->office_hours,
+
                 'bio' => $request->bio,
+
+                'faculty_image' => $facultyImage,
+
             ]);
 
-            Log::info('Faculty created: ' . $request->email);
-            return redirect()->route('admin.faculty.index')
-                ->with('success', 'Faculty created successfully.');
 
-        } catch (\Exception $e) {
-            Log::error('Faculty store error: ' . $e->getMessage());
-            return redirect()->back()
-                ->with('error', 'Error creating faculty.')
-                ->withInput();
+            Log::info('Faculty created: ' . $request->employee_id);
+
+            return redirect()
+                    ->route('admin.faculty.index')
+                    ->with('success', 'Faculty created successfully.');
+
+        }
+        catch (\Exception $e) {
+
+            return redirect()
+                    ->back()
+                    ->with('error', $e->getMessage());
         }
     }
 
@@ -147,47 +200,112 @@ class FacultyController extends Controller
     public function update(Request $request, $id)
     {
         try {
+
             $faculty = Faculty::findOrFail($id);
 
             $validator = Validator::make($request->all(), [
-                'user_id'=>'required',
-                'employee_id'=>'required',
+
+                'user_id' => 'required',
+
+                'employee_id' => 'required',
+
                 'department' => 'nullable|string|max:100',
+
                 'specialization' => 'nullable|string|max:100',
+
                 'qualification' => 'nullable|string|max:255',
+
                 'experience_years' => 'nullable|integer',
+
                 'salary' => 'nullable|numeric',
+
                 'office_hours' => 'nullable|string|max:255',
+
                 'bio' => 'nullable|string',
-                'status'=>'required'
+
+                'status' => 'required',
+
+                'faculty_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
             ]);
+
 
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
+
+                return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
             }
 
+
+            // Existing image by default
+            $facultyImage = $faculty->faculty_image;
+
+
+            // New image upload
+            if ($request->hasFile('faculty_image')) {
+
+                // Old image delete
+
+                if ($faculty->faculty_image &&
+                    file_exists(public_path('uploads/faculty/' . $faculty->faculty_image))) {
+
+                    unlink(public_path('uploads/faculty/' . $faculty->faculty_image));
+                }
+
+                $file = $request->file('faculty_image');
+
+                $facultyImage = time() . '_' . $file->getClientOriginalName();
+
+                $file->move(public_path('uploads/faculty'), $facultyImage);
+            }
+
+
             $faculty->update([
+
                 'user_id' => $request->user_id,
+
                 'employee_id' => $request->employee_id,
+
                 'department' => $request->department,
+
                 'specialization' => $request->specialization,
+
                 'qualification' => $request->qualification,
+
                 'experience_years' => $request->experience_years,
+
                 'salary' => $request->salary,
+
+                'joining_date'=> $request->joining_date,
+
                 'office_hours' => $request->office_hours,
+
                 'bio' => $request->bio,
+
                 'status' => $request->status,
+
+                'faculty_image' => $facultyImage,
+
             ]);
 
-            Log::info('Faculty updated: ' . $faculty->id);
-            return redirect()->route('admin.faculty.index')
-                ->with('success', 'Faculty updated successfully.');
 
-        } catch (\Exception $e) {
+            Log::info('Faculty updated: ' . $faculty->id);
+
+            return redirect()
+                    ->route('admin.faculty.index')
+                    ->with('success', 'Faculty updated successfully.');
+
+            }
+            catch (\Exception $e) {
+
             Log::error('Faculty update error: ' . $e->getMessage());
-            return redirect()->back()
-                ->with('error', 'Error updating faculty.')
-                ->withInput();
+
+            return redirect()
+                    ->back()
+                    ->with('error', 'Error updating faculty.')
+                    ->withInput();
         }
     }
 

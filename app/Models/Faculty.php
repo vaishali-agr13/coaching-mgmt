@@ -22,6 +22,7 @@ class Faculty extends Model
         'status',
         'office_hours',
         'bio',
+        'faculty_image',
     ];
 
     public function user()

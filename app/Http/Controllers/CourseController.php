@@ -72,11 +72,24 @@ class CourseController extends Controller
                 'start_date' => 'required|date',
                 'end_date' => 'required|date|after:start_date',
                 'fee' => 'nullable|numeric',
+                'course_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+
+            if ($request->hasFile('course_image')) {
+
+                $file = $request->file('course_image');
+
+                $courseImage = time().'_'.$file->getClientOriginalName();
+                //print_r($courseImage);die;
+
+                $file->move(public_path('uploads/courses'), $courseImage);
+            }
+
 
             Course::create([
                 'course_code' => $request->course_code,
@@ -91,7 +104,10 @@ class CourseController extends Controller
                 'end_date' => $request->end_date,
                 'fee' => $request->fee,
                 'status' => 'active',
+                'course_image' => $courseImage,
+
             ]);
+            
 
             Log::info('Course created: ' . $request->course_code);
             return redirect()->route('admin.courses.index')
@@ -140,49 +156,97 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $course = Course::findOrFail($id);
 
-            $validator = Validator::make($request->all(), [
-                'course_name' => 'required|string|max:150',
-                'description' => 'nullable|string',
-                'category' => 'nullable|string|max:100',
-                'level' => 'nullable|in:beginner,intermediate,advanced',
-                'duration_hours' => 'nullable|integer',
-                'max_students' => 'nullable|integer',
-                'faculty_id' => 'nullable|exists:faculty,id',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date|after:start_date',
-                'fee' => 'nullable|numeric',
-            ]);
+                $course = Course::findOrFail($id);
 
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
+                $validator = Validator::make($request->all(), [
+
+                    'course_name' => 'required|string|max:150',
+                    'description' => 'nullable|string',
+                    'category' => 'nullable|string|max:100',
+                    'level' => 'nullable|in:beginner,intermediate,advanced',
+                    'duration_hours' => 'nullable|integer',
+                    'max_students' => 'nullable|integer',
+                    'faculty_id' => 'nullable|exists:faculty,id',
+                    'start_date' => 'required|date',
+                    'end_date' => 'required|date|after:start_date',
+                    'fee' => 'nullable|numeric',
+
+                    'course_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+                ]);
+
+                if ($validator->fails()) {
+
+                    return redirect()
+                            ->back()
+                            ->withErrors($validator)
+                            ->withInput();
+                }
+
+
+                $courseImage = $course->course_image;
+
+
+                if ($request->hasFile('course_image')) {
+
+                    // Old image delete
+
+                    if ($course->course_image &&
+                        file_exists(public_path('uploads/courses/' . $course->course_image))) {
+
+                        unlink(public_path('uploads/courses/' . $course->course_image));
+                    }
+
+                    $file = $request->file('course_image');
+
+                    $courseImage = time() . '_' . $file->getClientOriginalName();
+
+                    $file->move(public_path('uploads/courses'), $courseImage);
+                }
+
+
+                $course->update([
+
+                    'course_name' => $request->course_name,
+
+                    'course_code' => $request->course_code,
+
+                    'description' => $request->description,
+
+                    'category' => $request->category,
+
+                    'level' => $request->level,
+
+                    'duration_hours' => $request->duration_hours,
+
+                    'max_students' => $request->max_students,
+
+                    'faculty_id' => $request->faculty_id,
+
+                    'start_date' => $request->start_date,
+
+                    'end_date' => $request->end_date,
+
+                    'fee' => $request->fee,
+
+                    'course_image' => $courseImage,
+
+                ]);
+
+                Log::info('Course updated: ' . $course->id);
+
+                return redirect()
+                        ->route('admin.courses.index')
+                        ->with('success', 'Course updated successfully.');
+
             }
+            catch (\Exception $e) {
 
-            $course->update([
-                'course_name' => $request->course_name,
-                'course_code'=>$request->course_code,
-                'description' => $request->description,
-                'category' => $request->category,
-                'level' => $request->level,
-                'duration_hours' => $request->duration_hours,
-                'max_students' => $request->max_students,
-                'faculty_id' => $request->faculty_id,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
-                'fee' => $request->fee,
-            ]);
-
-            Log::info('Course updated: ' . $course->id);
-            return redirect()->route('admin.courses.index')
-                ->with('success', 'Course updated successfully.');
-
-        } catch (\Exception $e) {
-            Log::error('Course update error: ' . $e->getMessage());
-            return redirect()->back()
-                ->with('error', 'Error updating course.')
-                ->withInput();
-        }
+                return redirect()
+                        ->back()
+                        ->with('error', $e->getMessage());
+            }
     }
 
     /**
@@ -243,5 +307,9 @@ class CourseController extends Controller
             Log::error('Course status update error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error updating status.');
         }
+    }
+    public function showDetails($id){
+       $course = Course::with('faculty.user')->findOrFail($id);
+       return view('front-end.course-details', compact('course'));
     }
 }

@@ -63,8 +63,16 @@ class GalleryController extends Controller
             }
 
             $coverImagePath = null;
+
+
+
             if ($request->hasFile('cover_image')) {
-                $coverImagePath = Storage::disk('public')->put('gallery-covers', $request->file('cover_image'));
+
+                $file = $request->file('cover_image');
+
+                $coverImagePath = time().'_'.$file->getClientOriginalName();
+
+                $file->move(public_path('uploads/gallery-covers'), $coverImagePath);
             }
 
             GalleryAlbum::create([
@@ -139,11 +147,22 @@ class GalleryController extends Controller
             }
 
             $coverImagePath = $album->cover_image;
+
             if ($request->hasFile('cover_image')) {
-                if ($album->cover_image && Storage::disk('public')->exists($album->cover_image)) {
-                    Storage::disk('public')->delete($album->cover_image);
+
+                // Old image delete
+
+                if ($album->cover_image &&
+                    file_exists(public_path('uploads/gallery-covers/' . $album->cover_image))) {
+
+                    unlink(public_path('uploads/gallery-covers/' . $album->cover_image));
                 }
-                $coverImagePath = Storage::disk('public')->put('gallery-covers', $request->file('cover_image'));
+
+                $file = $request->file('cover_image');
+
+                $coverImagePath = time() . '_' . $file->getClientOriginalName();
+
+                $file->move(public_path('uploads/gallery-covers'), $coverImagePath);
             }
 
             $album->update([

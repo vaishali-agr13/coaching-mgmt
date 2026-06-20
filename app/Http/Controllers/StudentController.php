@@ -154,7 +154,7 @@ class StudentController extends Controller
     {
         try {
 
-            $student = Student::with('user')->where('user_id', $id)->firstOrFail();
+            $student = Student::with('user')->where('id', $id)->firstOrFail();
         
             return view('admin.students.edit', compact('student'));
         } catch (\Exception $e) {

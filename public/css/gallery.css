@@ -1,0 +1,200 @@
+:root {
+    --primary-color: #E11D48; /* Pink/Magenta color matching image_a1e1a6.jpg */
+    --primary-gradient: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
+    --dark-color: #1E1B4B; /* Dark indigo/purple tone */
+    --light-bg: #FFF1F2; /* Soft pink tint background */
+    --text-muted: #6B7280;
+    --transition: all 0.4s ease-in-out;
+}
+
+.coaching-gallery {
+    padding: 80px 0;
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Heading Design matching the header components */
+.gallery-heading {
+    margin-bottom: 40px;
+}
+
+.gallery-heading .sub-title {
+    background: #FFF0F5; 
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    
+    /* Pink + Purple Gradient Mix on Text */
+    background: linear-gradient(135deg, #D83F87 0%, #701A75 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    
+    /* Subtle shadow to match the professional finish */
+    box-shadow: 0 2px 10px rgba(216, 63, 135, 0.05);
+}
+
+.gallery-heading h2 {
+    font-size: 38px;
+    color: #1E1B4B; /* Dark Blue/Purple tone for 'Our Campus' */
+    font-weight: 700;
+    margin: 0 0 15px 0;
+}
+
+.gallery-heading h2 span {
+    background: linear-gradient(135deg, #E11D48 0%, #701A75 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+.gallery-heading p {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Filter Tab Buttons */
+.gallery-filter-buttons {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background: #f3f4f6;
+    border: none;
+    padding: 10px 24px;
+    margin: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--dark-color);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--primary-gradient);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);
+}
+
+/* Gallery Grid Layout */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    .gallery-heading h2 {
+        font-size: 30px;
+    }
+}
+
+/* Gallery Item Box */
+.gallery-item {
+    transition: var(--transition);
+}
+
+.gallery-box {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    height: 260px;
+}
+
+.gallery-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+/* Elegant Hover Overlay matching image circle gradient style */
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(30, 27, 75, 0.9) 0%, rgba(225, 29, 72, 0.4) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 25px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: var(--transition);
+    transform: translateY(10px);
+}
+
+.gallery-box:hover .gallery-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-box:hover img {
+    transform: scale(1.1);
+}
+
+/* Content inside Overlay */
+.overlay-content {
+    width: 100%;
+}
+
+.overlay-content h5 {
+    color: #ffffff;
+    font-size: 20px;
+    margin: 0 0 5px 0;
+    font-weight: 600;
+}
+
+.overlay-content p {
+    color: #f3f4f6;
+    font-size: 14px;
+    margin: 0 0 15px 0;
+    opacity: 0.9;
+}
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #ffffff;
+    color: var(--primary-color);
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.view-btn:hover {
+    background: var(--primary-gradient);
+    color: #ffffff;
+    transform: rotate(90deg);
+}

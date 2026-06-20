@@ -89,20 +89,13 @@
                     <div class="form-group">
                         <label>Cousrse</label>
 
-                       <select name="applied_course_id" required>
-                                <option value="">Select Course</option>
-
-                                @foreach($courses as $course)
-
-                                    <option
-                                        value="{{ $course->id }}"
-                                        {{ old('applied_course_id', $admissionData['applied_course_id'] ?? '') == $course->id ? 'selected' : '' }}
-                                    >
-                                        {{ $course->course_name }}
-                                    </option>
-
-                                @endforeach
-                       </select>
+          <select name="applied_course_id[]" multiple class="form-control" size="5">
+    @foreach($courses as $course)
+        <option value="{{ $course->id }}">
+            {{ $course->course_name }}
+        </option>
+    @endforeach
+</select>
                     </div>
 
                    
@@ -295,5 +288,10 @@ textarea:focus {
     border-radius: 8px;
 
     font-weight: 600;
+}
+
+select[multiple] {
+    height: 150px !important;
+    overflow-y: auto;
 }
 </style>

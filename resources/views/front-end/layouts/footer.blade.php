@@ -20,6 +20,30 @@ We're here to help every step of the way.
 Let's Join us
 </a>
 
+<div class="footer-contact" style="margin-top: 40px;">
+
+    <div class="contact-item">
+
+        <i class="fa-solid fa-envelope"></i>
+
+        <a href="mailto:info@yourcoaching.com">
+            info@yourcoaching.com
+        </a>
+
+    </div>
+
+    <div class="contact-item">
+
+        <i class="fa-solid fa-phone"></i>
+
+        <a href="tel:+919876543210">
+            +91 98765 43210
+        </a>
+
+    </div>
+
+</div>
+
 <div class="signature">
 
 <div class="sig-avatar">

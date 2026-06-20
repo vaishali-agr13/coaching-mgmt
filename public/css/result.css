@@ -1,0 +1,255 @@
+.gradient-results-universe {
+        position: relative;
+        padding: 100px 20px;
+        /* Subtle Purple & Pink dynamic mesh background instead of raw white */
+        background: radial-gradient(circle at 10% 20%, rgba(244, 63, 94, 0.05) 0%, rgba(168, 85, 247, 0.04) 90%), #fbf7ff;
+        overflow: hidden;
+        font-family: 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Ambient Glowing Shapes floating in background */
+    .blob {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.25;
+        z-index: 1;
+    }
+    .blob-purple {
+        background: #a855f7;
+        top: 10%;
+        left: -100px;
+    }
+    .blob-pink {
+        background: #ec4899;
+        bottom: 5%;
+        right: -100px;
+    }
+
+    .universe-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2; /* Content stays on top of blobs */
+    }
+
+    /* --- Dynamic Header --- */
+    .universe-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .universe-header .universe-tagline {
+        font-size: 13px;
+        font-weight: 700;
+        color: #ffffff;
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+        padding: 6px 18px;
+        border-radius: 50px;
+        display: inline-block;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 15px rgba(236, 72, 153, 0.2);
+    }
+
+    .universe-header h2 {
+        font-size: 42px;
+        font-weight: 800;
+        color: #1e1b4b; /* Deep Indigo-Black */
+        margin-bottom: 15px;
+        letter-spacing: -0.5px;
+    }
+
+    .universe-header p {
+        font-size: 16px;
+        color: #5b5275;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    /* --- Stats Section Layout --- */
+    .universe-stats-row {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 70px;
+        flex-wrap: wrap;
+    }
+
+    .universe-stat-card {
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid rgba(168, 85, 247, 0.15);
+        padding: 20px 35px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 10px 25px rgba(147, 51, 234, 0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .universe-stat-card:hover {
+        transform: translateY(-3px);
+        border-color: #ec4899;
+        box-shadow: 0 15px 30px rgba(236, 72, 153, 0.15);
+    }
+
+    .stat-icon-box {
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #d946ef;
+    }
+
+    .univ-num {
+        display: block;
+        font-size: 30px;
+        font-weight: 800;
+        color: #1e1b4b;
+        line-height: 1.2;
+    }
+
+    .univ-lbl {
+        font-size: 13px;
+        color: #6b6287;
+        font-weight: 600;
+    }
+
+    /* --- Premium Glassmorphism Cards Grid --- */
+    .universe-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    @media (max-width: 992px) {
+        .universe-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 680px) {
+        .universe-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .glass-topper-card {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 24px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 15px 35px rgba(147, 51, 234, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+        transition: all 0.4s ease;
+    }
+
+    /* Center Special Highlight Card Styling */
+    .glass-topper-card.featured {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(253, 242, 248, 0.8) 100%);
+        border: 1px solid rgba(236, 72, 153, 0.25);
+        box-shadow: 0 20px 45px rgba(236, 72, 153, 0.1);
+    }
+
+    .glass-topper-card:hover {
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.9);
+        border-color: #d946ef;
+        box-shadow: 0 25px 50px rgba(168, 85, 247, 0.15);
+    }
+
+    .glass-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .glass-badge {
+        font-size: 12px;
+        font-weight: 700;
+        background-color: #f3e8ff;
+        color: #9333ea;
+        padding: 6px 14px;
+        border-radius: 50px;
+    }
+
+    .glass-badge.dynamic-gradient {
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+        color: white;
+    }
+
+    .glass-avatar {
+        width: 55px;
+        height: 55px;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(236, 72, 153, 0.08));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: #bc25ca;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    /* Body elements */
+    .glass-card-body h3 {
+        font-size: 22px;
+        color: #1e1b4b;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    /* Rounded Tags mirroring image_a34d86.jpg structure exactly */
+    .glass-tags {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    .gtag {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 5px 14px;
+        border-radius: 100px;
+        background: rgba(253, 242, 248, 1);
+        color: #ec4899;
+        border: 1px solid rgba(236, 72, 153, 0.15);
+    }
+
+    .glass-desc {
+        font-size: 14.5px;
+        color: #4f46e5; /* Contrast blue-purple tone for readability */
+        color: #5c527a;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    /* Card Footer Score Area */
+    .card-footer-score {
+        border-top: 1px dashed rgba(168, 85, 247, 0.2);
+        padding-top: 15px;
+        font-size: 14px;
+        color: #1e1b4b;
+    }
+
+    .card-footer-score strong {
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 16px;
+        font-weight: 800;
+        margin-left: 4px;
+    }
