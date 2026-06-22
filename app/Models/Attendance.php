@@ -26,9 +26,9 @@ class Attendance extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function student()
+   public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 
     public function course()

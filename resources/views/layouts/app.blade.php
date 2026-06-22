@@ -189,6 +189,12 @@
                 </li>
 
                 <li>
+                    <a href="/admin/parents">
+                        <i class="fas fa-user-graduate"></i> Parent
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.courses.index') }}">
                        <i class="fas fa-book-open"></i>  Course 
                     </a>
@@ -302,7 +308,28 @@
 
             @endif
                 
+            @if(auth()->user()->role == 'parent')
+              <li class="nav-item">
+                    <a href="{{ route('admin.parents.attendance') }}"  class="nav-link">
 
+                        <p>Attendance</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.parents.fees') }}"  class="nav-link">
+
+                        <p>Fee Details</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.parents.progress') }}"  class="nav-link">
+
+                        <p>Progress Report</p>
+                    </a>
+                </li>
+            @endif
                 
                 <!-- <li>
                     <a href="#">

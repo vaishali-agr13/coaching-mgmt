@@ -61,7 +61,7 @@
                     </h3>
                 </div>
 
-                <form action="{{ route('admin.fees.store') }}" method="POST">
+                <form action="{{ route('admin.fees.store') }}" id="feeForm" method="POST">
 
                     @csrf
 
@@ -105,7 +105,7 @@
                                         Course <span class="text-danger">*</span>
                                     </label>
 
-                                    <select name="course_id"
+                                    <select name="course_id" id="course_id"
                                             class="form-control"
                                             required>
 
@@ -115,6 +115,7 @@
 
                                         @foreach($courses as $course)
                                             <option value="{{ $course->id }}"
+                                                    data-fee="{{ $course->fee }}"
                                                 {{ old('course_id') == $course->id ? 'selected' : '' }}>
 
                                                 {{ $course->course_name }}
@@ -133,23 +134,16 @@
 
                                     <select name="fee_type" class="form-control">
 
-                                        <option value="tuition">
-                                            Tuition Fee
+                                        <option value="1_installment">
+                                            1st Installment
                                         </option>
 
-                                        <option value="exam">
-                                            Exam Fee
+                                        <option value="2_installment">
+                                            2nd Installment
                                         </option>
 
-                                        <option value="activity">
-                                            Activity Fee
-                                        </option>
-
-                                        <option value="library">
-                                            Library Fee
-                                        </option>
-                                              <option value="other">
-                                            Other Fee
+                                        <option value="final_installment">
+                                           Final Installment
                                         </option>
 
                                     </select>
@@ -178,9 +172,10 @@
                                     <input type="number"
                                            step="0.01"
                                            name="fee_amount"
+                                           id="total_fee"
                                            class="form-control"
                                            value="{{ old('fee_amount') }}"
-                                           placeholder="Enter Amount">
+                                           placeholder="Enter Amount" readonly>
                                 </div>
                             </div>
 
@@ -336,31 +331,87 @@
 @section('scripts')
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function () {
 
+    const course = document.getElementById('course_id');
+
     const amount = document.querySelector('[name="fee_amount"]');
+
     const paid = document.querySelector('[name="paid_amount"]');
+
     const due = document.getElementById('due_amount');
 
-    function calculateDue()
-    {
+    function calculateDue() {
+
         let total = parseFloat(amount.value) || 0;
+
         let paidAmount = parseFloat(paid.value) || 0;
 
         due.value = (total - paidAmount).toFixed(2);
+
     }
 
-    amount.addEventListener('keyup', calculateDue);
+    // Course change
+    course.addEventListener('change', function() {
+
+        let selectedOption = this.options[this.selectedIndex];
+
+        let fee = selectedOption.dataset.fee || 0;
+
+        amount.value = fee;
+
+        // Recalculate due amount
+        calculateDue();
+
+    });
+
+    // Paid amount change
     paid.addEventListener('keyup', calculateDue);
 
-    amount.addEventListener('change', calculateDue);
     paid.addEventListener('change', calculateDue);
 
     calculateDue();
 
 });
 
+
+
+document.getElementById('feeForm').addEventListener('submit', function(e){
+
+    let total = parseFloat(document.querySelector('[name="fee_amount"]').value) || 0;
+
+    let paid = parseFloat(document.querySelector('[name="paid_amount"]').value) || 0;
+
+    let due = parseFloat(document.getElementById('due_amount').value) || 0;
+
+    if (paid > total) {
+
+        e.preventDefault();
+
+        alert('Paid fee cannot be greater than Total fee.');
+
+        return;
+    }
+
+    if (due < 0) {
+
+        e.preventDefault();
+
+        alert('Due fee cannot be negative.');
+
+        return;
+    }
+
+    if ((paid + due) !== total) {
+
+        e.preventDefault();
+
+        alert('Total fee must be equal to Paid fee + Due fee.');
+
+        return;
+    }
+
+});
 </script>
 
 @endsection

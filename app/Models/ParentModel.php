@@ -28,9 +28,9 @@ class ParentModel extends Model
         'address',
     ];
 
-    public function students()
+   public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Student::class, 'parent_id', 'id');
     }
 
     public function user()

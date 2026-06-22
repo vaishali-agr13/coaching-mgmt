@@ -161,6 +161,26 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
         Route::delete('/{id}', [ParentController::class,'destroy'])->name('destroy');
 
+         Route::get('/attendance',
+                [ParentController::class,'attendance']
+            )->name('attendance');
+
+
+        Route::get('/fees',
+            [ParentController::class,'fees']
+        )->name('fees');
+
+
+        Route::get('/progress',
+            [ParentController::class,'progress']
+        )->name('progress');
+
+
+        Route::get('/results',
+                [ParentController::class,'results']
+            )->name('results');
+
+
         Route::get('/dashboard',function(){ return view('admin.parents.dashboard');})->name('dashboard');
 
     });

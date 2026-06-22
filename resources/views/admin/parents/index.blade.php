@@ -106,13 +106,12 @@ class="table table-bordered table-striped">
 
 <td>
 
-{{ $parent->user->name }}
-
+{{ $parent->user?->name }}
 </td>
 
 <td>
 
-{{ $parent->user->email }}
+{{ $parent->user?->email }}
 
 </td>
 

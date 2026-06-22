@@ -66,7 +66,7 @@ class FeeController extends Controller
                 'student_id' => 'required|exists:students,id',
                 'course_id' => 'required|exists:courses,id',
                 'fee_amount' => 'required|numeric|min:0',
-                'fee_type' => 'required|in:tuition,exam,library,lab,activity,other',
+                'fee_type' => 'required',
             ]);
 
             if ($validator->fails()) {

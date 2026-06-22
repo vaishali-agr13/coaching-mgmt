@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Fee;
+use App\Models\ExamResult;
 use App\Models\ParentModel;
+use App\Models\Attendance;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ParentController extends Controller
@@ -140,4 +145,132 @@ class ParentController extends Controller
                 ->route('admin.parents.index')
                 ->with('success','Deleted Successfully');
         }
+
+    public function attendance()
+    {
+        $user = Auth::user();
+
+        $parent = ParentModel::where('user_id', $user->id)->first();
+
+        if (!$parent) {
+            return back()->with('error', 'Parent not found.');
+        }
+
+        // Parent ke saare students
+        $studentIds = $parent->students()->pluck('id');
+
+        // Attendance + student name
+       // print_r($studentIds);die;
+        $attendance = Attendance::with('student.user')
+                ->whereIn('student_id', $studentIds)
+                ->orderBy('attendance_date', 'desc')
+                ->latest()
+                ->get();
+
+        return view('admin.parents.attendance', compact('attendance'));
+    }
+
+
+
+  public function fees()
+    {
+        $user = Auth::user();
+
+        $parent = ParentModel::where('user_id', $user->id)->first();
+
+        if (!$parent) {
+            return back()->with('error', 'Parent not found.');
+        }
+
+        // Parent ke saare students ki ids
+        $studentIds = $parent->students()->pluck('id');
+
+        // Fees + student + user
+        $fees = Fee::with(['student.user','course'])
+                    ->whereIn('student_id', $studentIds)
+                    ->orderBy('payment_date', 'desc')
+                    ->get();
+
+        return view('admin.parents.fee', compact('fees'));
+    }
+
+
+    public function progress()
+    {
+        $user = Auth::user();
+
+        $parent = ParentModel::where('user_id', $user->id)->first();
+
+        if (!$parent) {
+            return back()->with('error', 'Parent not found.');
+        }
+
+        $student = $parent->students()->first();
+
+        if (!$student) {
+            return back()->with('error', 'No student assigned.');
+        }
+
+        $attendance = Attendance::where(
+            'student_id',
+            $student->id
+        )->latest()->get();
+
+        $results = ExamResult::with('exam.course')
+                    ->where('student_id', $student->id)
+                    ->latest()
+                    ->get();
+
+
+        $totalClasses = $attendance->count();
+
+        $present = $attendance
+                    ->where('status', 'present')
+                    ->count();
+
+        $absent = $attendance
+                    ->where('status', 'absent')
+                    ->count();
+
+        $attendancePercentage = $totalClasses
+            ? round(($present / $totalClasses) * 100)
+            : 0;
+
+
+        return view(
+            'admin.parents.progress',
+            compact(
+                'student',
+                'attendance',
+                'results',
+                'totalClasses',
+                'present',
+                'absent',
+                'attendancePercentage'
+            )
+        );
+    }
+
+
+
+    public function results()
+    {
+        $parent=Auth::guard('parent')->user();
+
+        $student=$parent->students()->first();
+
+        $results=ExamResult::where(
+            'student_id',
+            $student->id
+        )->get();
+
+        return view(
+            'parent.results',
+            compact('results')
+        );
+    }
+
+
+
+   
 }
