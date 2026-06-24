@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Faculty;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
@@ -52,6 +54,18 @@ class CourseController extends Controller
             Log::error('Course create error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error loading form.');
         }
+    }
+
+    public function enrollCheck($id)
+    {
+        if (!Auth::check()) {
+
+            return redirect()
+                ->route('register')
+                ->with('message', 'Please create your profile first.');
+        }
+
+        return redirect()->route('course.enroll', $id);
     }
 
     /**

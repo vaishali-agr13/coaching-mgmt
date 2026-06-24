@@ -49,11 +49,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 
 </nav>
 
+@if(Auth::check())
 <div>
+<form action="{{ route('logoutFrontEnd') }}" method="POST">
 
-<a href="#" class="btn-signin">Sign in</a>
+    @csrf
 
+    <button type="submit" class="btn-signin">
+
+        Logout
+
+    </button>
+
+
+
+</form>
+
+@else
+
+<a href="{{ route('sign-in') }}" class="btn btn-theme">
+
+    Login
+
+</a>
 </div>
+@endif
 
 </div>
 

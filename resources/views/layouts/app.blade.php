@@ -162,6 +162,7 @@
             </div>
 
             <ul class="nav-menu">
+                @auth
              @if(auth()->user()->role == 'admin')
 
                 <li>
@@ -278,7 +279,8 @@
                 </li>
 
             @endif
-
+@endauth
+@auth
 
              @if(auth()->user()->role == 'student')
 
@@ -308,6 +310,9 @@
 
             @endif
                 
+            @endauth
+
+            @auth
             @if(auth()->user()->role == 'parent')
               <li class="nav-item">
                     <a href="{{ route('admin.parents.attendance') }}"  class="nav-link">
@@ -330,7 +335,7 @@
                     </a>
                 </li>
             @endif
-                
+                @endauth
                 <!-- <li>
                     <a href="#">
                         <i class="fas fa-book"></i> Courses

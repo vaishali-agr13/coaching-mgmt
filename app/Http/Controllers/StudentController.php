@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\CourseEnrollment;
 
+use App\Models\ParentModel;
 use App\Models\User;
 use App\Models\Course;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -161,6 +163,12 @@ class StudentController extends Controller
             Log::error('Student edit error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Student not found.');
         }
+    }
+
+    public function createProfile(){
+        $user = User::with('student')->findOrFail(Auth::id());
+        $parents = ParentModel::select('id', 'father_name')->get();      
+        return view('front-end.student-dashboard',compact('user','parents'));
     }
 
     /**
@@ -318,4 +326,67 @@ class StudentController extends Controller
             return redirect()->back()->with('error', 'Error updating status.');
         }
     }
+
+    public function updateProfile(Request $request)
+        {
+
+          try{
+            $request->validate([
+                'name'          => 'required|max:255',
+                'email'         => 'required|email',
+                'phone'         => 'required',
+                'address'       => 'nullable',
+                'city'          => 'nullable',
+                'parent_id'   => 'nullable',
+            ]);
+
+            $user = Auth::user();
+
+           $userData = [
+                        'name'  => $request->name,
+                        'email' => $request->email,
+                        'phone'=>$request->phone,
+           ];
+             if ($request->filled('password')) {
+
+                        $request->validate([
+                            'password' => 'min:6|confirmed',
+                        ]);
+
+                        $userData['password'] = Hash::make($request->password);
+            }
+
+            $user->update($userData);
+
+            // 2. Insert/Update parents table
+            $student = Student::updateOrCreate(
+
+                ['user_id' => $user->id],
+
+                [
+                    'date_of_birth'=>$request->date_of_birth,
+                    'gender'       =>$request->gender,
+                    'parent_id'    => $request->parent_id,
+                    'phone'        => $request->phone,
+                    'address'      => $request->address,
+                    'city'         => $request->city,
+                    'state'        => $request->state,
+                    'postal_code'  => $request->postal_code,
+                ]
+
+                );
+               echo '<pre>';
+                return redirect()
+                        ->back()
+                        ->with('success', 'Profile updated successfully.');
+
+            }
+            catch (\Exception $e) {
+               //echo $e->getMessage();die;
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('error', $e->getMessage());
+            }
+        }
 }

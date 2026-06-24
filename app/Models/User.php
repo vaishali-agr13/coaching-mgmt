@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasOne(Faculty::class, 'user_id');
     }
 
+    public function parent()
+    {
+        return $this->hasOne(ParentModel::class, 'user_id', 'id');
+    }
+
     /**
      * Check if user is admin
      */

@@ -118,6 +118,69 @@ class AuthController extends Controller
                     ->withInput($request->except('password'));
             }
         }
+
+        public function loginFormFrontEnd(){
+            return view('front-end.login');
+
+        }
+
+        
+
+        public function registerFrontEnd(Request $request)
+        {
+          try{
+            $request->validate([
+
+                'name' => 'required',
+
+                'email' => 'required|email|unique:users,email',
+
+                'phone' => 'required',
+
+                'password' => 'required|min:6|confirmed'
+
+            ]);
+
+            $user = User::create([
+
+                'name' => $request->name,
+
+                'email' => $request->email,
+
+                'phone' => $request->phone,
+
+                'role' => $request->role,
+
+                'password' => Hash::make($request->password)
+
+            ]);
+
+            Auth::login($user);
+
+            return redirect()
+                ->route('dashboard')
+                ->with('success','Profile created successfully.');
+
+     }
+
+        catch(\Exception $e)
+        {
+echo $e->getMessage(); die;
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->with('error',$e->getMessage());
+
+            // Production me ye better hai:
+
+            // ->with('error','Something went wrong.');
+
+        }
+    }
+
+
+
     /**
      * Show registration form
      */
@@ -185,9 +248,62 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Handle logout request
-     */
+
+    
+    public function registerFormFrontEnd(Request $request){
+       return view('front-end.register');
+
+    }
+     
+    public function logoutFrontEnd(Request $request)
+        {
+            Auth::logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect()
+                ->route('sign-in')
+                ->with('success', 'Logged out successfully.');
+        }
+     public function loginFrontEnd(Request $request){
+
+            $request->validate([
+                    'email'    => 'required|email',
+                    'password' => 'required',
+                ]);
+
+                $credentials = [
+                    'email'    => $request->email,
+                    'password' => $request->password,
+                    'status'   => 'active',
+                ];
+
+                if (Auth::attempt($credentials, $request->filled('remember'))) {
+
+                    $request->session()->regenerate();
+
+                    if (Auth::user()->role == 'student') {
+
+                        return redirect()->route('student.profile');
+                    }
+
+                    if (Auth::user()->role == 'parent') {
+
+                        return redirect()->route('parent.profile');
+                    }
+
+                    return redirect()->route('dashboard');
+                }
+
+                return back()
+                    ->withErrors([
+                        'email' => 'Invalid email or password.',
+                    ])
+                    ->withInput();
+        }
+    
     public function logout(Request $request)
     {
         try {

@@ -116,11 +116,13 @@ Laravel
 
 <span>₹{{$course->fee}}</span>
 
-<button>
 
-Enroll Now
 
-</button>
+<a href="{{ route('enroll.check', $course->id) }}" class="btn btn-primary">
+    Enroll Now
+</a>
+
+
 
 </div>
 

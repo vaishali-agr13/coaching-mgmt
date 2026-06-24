@@ -264,12 +264,73 @@ class ParentController extends Controller
             $student->id
         )->get();
 
-        return view(
-            'parent.results',
-            compact('results')
-        );
+        return view( 'parent.results', compact('results'));
     }
 
+    public function createProfile(){
+        $user = User::with('parent')->findOrFail(Auth::id());      
+        return view('front-end.parent-dashboard',compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+        {
+
+          try{
+            $request->validate([
+                'name'          => 'required|max:255',
+                'email'         => 'required|email',
+                'phone'         => 'required',
+                'address'       => 'nullable',
+                'mother_name'   => 'nullable',
+            ]);
+
+            $user = Auth::user();
+
+           $userData = [
+                        'name'  => $request->name,
+                        'email' => $request->email,
+                        'phone'=>$request->phone,
+           ];
+             if ($request->filled('password')) {
+
+                        $request->validate([
+                            'password' => 'min:6|confirmed',
+                        ]);
+
+                        $userData['password'] = Hash::make($request->password);
+            }
+
+            $user->update($userData);
+
+            // 2. Insert/Update parents table
+            ParentModel::updateOrCreate(
+
+                ['user_id' => $user->id],
+
+                [
+                    'phone'       => $request->phone,
+                    'address'     => $request->address,
+                        'father_name' => $request->name,
+                        'mother_name' => $request->mother_name,
+                        'email'       => $request->email,
+                        'occupation'  => $request->occupation,
+                    ]
+
+                );
+
+                return redirect()
+                        ->back()
+                        ->with('success', 'Profile updated successfully.');
+
+            }
+            catch (\Exception $e) {
+                echo $e->getMessage();die;
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('error', $e->getMessage());
+            }
+        }
 
 
    

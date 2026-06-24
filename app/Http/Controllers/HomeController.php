@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -168,7 +169,6 @@ class HomeController extends Controller
                         );
             } 
          catch (\Exception $e) {
-            echo $e->getMessage();die;
                 return redirect()
                     ->back()
                     ->withInput()
@@ -176,6 +176,27 @@ class HomeController extends Controller
           }
         }
 
+    public function dashboard(){
+
+        if (!Auth::check()) {
+            return redirect()->route('sign-in')
+                ->with('error', 'Please login first.');
+        }
+        $user = Auth::user();
+        if($user->role == 'student')
+            {
+                return redirect()->route('student.profile');
+            }
+
+        if($user->role == 'parent')
+        {
+           return redirect()->route('parent.profile');
+        }
+
+
+         return view('front-end.dashboard', compact('user'));
+     }
+    
     public function redirectToAdmission(Request $request)
         {
             $fullName = trim($request->name);

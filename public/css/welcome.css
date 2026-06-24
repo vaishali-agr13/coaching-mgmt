@@ -573,28 +573,45 @@
 
         /* --- 6. DYNAMIC POPULAR COURSES SECTION --- */
         .popular-courses {
-            background: var(--brand-gradient);
-            color: var(--white);
-            padding: 80px 0;
+          background: var(--brand-gradient);
+    color: var(--white);
+    padding: 80px 0;
+    overflow: hidden;
         }
 
         .courses-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 48px auto;
+          text-align: center;
+    max-width: 600px;
+    margin: 0 auto 48px auto;
         }
 
         .courses-header h2 {
             font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 12px;
+    font-weight: 800;
+    margin-bottom: 12px;
         }
 
         .courses-header p {
-            font-size: 12px;
-            opacity: 0.85;
+          font-size: 12px;
+    opacity: 0.85;
         }
 
+        .slider-window {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.cards-slider-track {
+    display: flex;
+    gap: 32px; /* Cards ke beech ka gap */
+    width: max-content;
+    animation: scrollCards 30s linear infinite; /* Left to Right move karne ke liye loop */
+}
+
+.cards-slider-track:hover {
+    animation-play-state: paused;
+}
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -603,20 +620,24 @@
 
         .course-card {
             background-color: var(--white);
-            color: var(--text-dark);
-           
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    color: var(--text-dark);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    width: 320px; /* Ek card ki standard width define ki hai */
+    flex-shrink: 0; /* Taaki flex layout me card chota/squeeze na ho */
+    border-radius: 12px;
         }
 
         .card-img-placeholder {
-            height: 220px;
+           height: 220px;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    border-radius: 8px;
         }
 
         .course-image{
@@ -626,6 +647,17 @@
     display: block;
 }
 
+
+
+@keyframes scrollCards {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Kyuki humne 2 sets banaye hain, 50% shift karne par seamless repeat hoga */
+        transform: translateX(-50%); 
+    }
+}
         .java-color { color: #b07219; }
         .python-color { color: #3572A5; }
         .html-color { color: #e34c26; }
@@ -660,17 +692,18 @@
         /* --- 7. MEET OUR FACULTY SECTION (NEW) --- */
         .faculty-section {
             padding: 80px 0;
-            background-color: var(--bg-light);
+    background-color: var(--bg-light);
+    overflow: hidden;
         }
 
         .faculty-header {
-            text-align: center;
-            margin-bottom: 50px;
+         text-align: center;
+    margin-bottom: 50px;
         }
 
         .faculty-header h2 {
             font-size: 32px;
-            font-weight: 800;
+    font-weight: 800;
         }
 
         .faculty-header p {
@@ -679,6 +712,21 @@
             margin-top: 8px;
         }
 
+        .faculty-slider-window {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.faculty-slider-track:hover {
+    animation-play-state: paused;
+}
+.faculty-slider-track {
+    display: flex;
+    gap: 30px; /* Cards ke beech ka separation gap */
+    width: max-content;
+    animation: scrollFaculty 28s linear infinite; /* Aap speed controls change kar sakte hain (e.g. 25s ya 30s) */
+}
         .faculty-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -686,61 +734,78 @@
         }
 
         .faculty-card {
-            background-color: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            text-align: center;
-            padding: 30px 20px;
-            border: 1px solid #f3f4f6;
+           background-color: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    text-align: center;
+    padding: 30px 20px;
+    border: 1px solid #f3f4f6;
+    width: 280px; /* Slider me perfect fit hone ke liye set width */
+    flex-shrink: 0; /* Taaki cards flexible row me shrink na ho payein */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+
+        .faculty-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
         .faculty-avatar-wrapper {
            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            margin: 0 auto;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
         }
 
         .faculty-avatar-wrapper img{
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+    height: 100%;
+    object-fit: cover;
+    display: block;
         }
 
         .faculty-avatar-wrapper i {
-            font-size: 45px;
-            color: var(--brand-purple);
+       font-size: 45px;
+    color: var(--brand-purple);
         }
 
         .faculty-card h4 {
             font-size: 18px;
-            font-weight: 700;
-            color: var(--text-dark);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
         }
 
         .faculty-card .designation {
-            font-size: 13px;
-            color: var(--brand-pink);
-            font-weight: 600;
-            margin-bottom: 12px;
+          font-size: 13px;
+    color: var(--brand-pink);
+    font-weight: 600;
+    margin-bottom: 12px;
         }
 
         .faculty-card .experience {
             font-size: 12px;
-            color: var(--text-gray);
-            background: #f3f4f6;
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 50px;
+    color: var(--text-gray);
+    background: #f3f4f6;
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 50px;
         }
+
+        @keyframes scrollFaculty {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* 50% shift perfect continuous animation perform karega */
+        transform: translateX(-50%);
+    }
+}
 
         /* --- 8. ADMISSION & LEAD INTAKE FORM SECTION (NEW) --- */
         .admission-lead-section {
@@ -1162,10 +1227,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 .testimonials-section {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg, #ffffff 0%, #fff0f0 100%); /* Light background gradient */
-  padding: 60px 20px;
-  text-align: center;
+  padding: 80px 0;
+    overflow: hidden;
 }
 
 .container {
@@ -1173,6 +1236,23 @@
   margin: 0 auto;
 }
 
+
+.testimonials-slider-window {
+    width: 100%;
+    overflow: hidden;
+    padding: 25px 0;
+}
+
+.testimonials-slider-track {
+    display: flex;
+    gap: 30px; /* Cards ke beech ki spacing */
+    width: max-content;
+    animation: scrollTestimonials 32s linear infinite; /* Loops in 32 seconds, adjust for speed */
+}
+
+.testimonials-slider-track:hover {
+    animation-play-state: paused;
+}
 /* Badge Styling */
 .section-badge {
   display: inline-flex;
@@ -1214,18 +1294,30 @@
 
 /* Card Styling */
 .testimonial-card {
-  background: #fff;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
-    display: flex;
-    flex-direction: column;
-    text-align: left; 
-    
-    /* Height ko kam karne ke liye min-height ko 240px ya 250px kar dein */
-    min-height: 240px; 
-    
-    justify-content: flex-start;
+  width: 350px; /* Slider track ke liye fixed content width */
+    flex-shrink: 0; /* Cards flexible layout me shrink na hon */
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 1px solid #eef2f6;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Infinite Marquee Loop Keyframe Animation */
+@keyframes scrollTestimonials {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* -50% shift ensures seamless jumping to start */
+        transform: translateX(-50%);
+    }
 }
 
 .student-header {

@@ -41,6 +41,33 @@ Route::get('/gallery', [HomeController::class, 'gallery']);
 
 Route::get('/blogs', [HomeController::class, 'blog']);
 
+Route::get('/sign-in', [AuthController::class, 'loginFormFrontEnd'])->name('sign-in');
+
+Route::post('/sign-in', [AuthController::class, 'loginFrontEnd'])->name('sign-in.store');
+
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+
+
+Route::post('/logout', [AuthController::class, 'logoutFrontEnd'])
+        ->name('logoutFrontEnd');
+
+        
+Route::get('/parent/profile', [ParentController::class,'createProfile'])
+        ->name('parent.profile');
+
+Route::post('/parent/profile', [ParentController::class,'updateProfile'])
+        ->name('parent.profile.store');
+
+Route::get('/student/profile', [StudentController::class,'createProfile'])
+        ->name('student.profile');
+
+Route::post('/student/profile', [StudentController::class,'updateProfile'])
+        ->name('student.profile.store');
+
+
+Route::get('/register', [AuthController::class, 'registerFormFrontEnd']);
+
+Route::post('/register', [AuthController::class,'registerFrontEnd']);
 
 Route::get('/result', function () { return view('front-end.result');});
 
@@ -54,6 +81,8 @@ Route::get('/about-us', function () {
 
     return view('front-end.about-us');
 });
+
+Route::get('/enroll/{id}', [CourseController::class, 'enrollCheck'])->name('enroll.check');
 
 
 // ============================================
