@@ -118,8 +118,8 @@ Laravel
 
 
 
-<a href="{{ route('enroll.check', $course->id) }}" class="btn btn-primary">
-    Enroll Now
+ <a href="{{ route('course.checkout',$course->id) }}" class="btn btn-primary">
+    Buy Now
 </a>
 
 

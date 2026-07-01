@@ -60,8 +60,7 @@ class CourseController extends Controller
     {
         if (!Auth::check()) {
 
-            return redirect()
-                ->route('register')
+            return redirect('/register')
                 ->with('message', 'Please create your profile first.');
         }
 

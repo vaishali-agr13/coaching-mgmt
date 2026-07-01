@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
  use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CoursePurchaseController;
 
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\CourseController;
@@ -29,6 +30,39 @@ use App\Http\Controllers\ParentController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/course/{course}/checkout', [CoursePurchaseController::class,'checkout'])->name('course.checkout');
+
+
+    Route::post(
+        '/course/order',
+        [CoursePurchaseController::class,'createOrder']
+    )->name('course.order');
+
+
+    Route::get(
+        '/payment/{order}',
+        [CoursePurchaseController::class,'payment']
+    )->name('course.payment');
+
+ 
+
+
+    Route::post(
+        '/payment/success/{order}',
+        [CoursePurchaseController::class,'paymentSuccess']
+    )->name('payment.success');
+
+
+    Route::get(
+        '/my-courses',
+        [CoursePurchaseController::class,'myCourses']
+    )->name('my.courses');
+
+});
+
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/courses', [HomeController::class, 'getCourseList']);
@@ -82,7 +116,7 @@ Route::get('/about-us', function () {
     return view('front-end.about-us');
 });
 
-Route::get('/enroll/{id}', [CourseController::class, 'enrollCheck'])->name('enroll.check');
+// Route::get('/enroll/{id}', [CourseController::class, 'enrollCheck'])->name('enroll.check');
 
 
 // ============================================

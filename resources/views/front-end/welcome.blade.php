@@ -137,10 +137,10 @@
 
     <section class="partners">
         <div class="container partner-flex">
-            <span><i class="fa-solid fa-atom"></i> Physics</span>
-            <span><i class="fa-solid fa-flask"></i> Chemistry</span>
-            <span><i class="fa-solid fa-calculator"></i> Maths</span>
-            <span><i class="fa-solid fa-dna"></i> Biology</span>
+            <span><i class="fa-solid fa-atom"></i> 11th</span>
+            <span><i class="fa-solid fa-flask"></i> 12th</span>
+            <span><i class="fa-solid fa-calculator"></i> NEET</span>
+            <span><i class="fa-solid fa-dna"></i> IIT JEE</span>
         </div>
     </section>
 
